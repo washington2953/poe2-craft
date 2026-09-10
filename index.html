@@ -170,7 +170,7 @@ body {
     box-shadow: 0 0 15px rgba(201,168,76,0.2);
 }
 
-/* ===== ÁREA DE IMAGEM DO ITEM (NOVO) ===== */
+/* ===== ÁREA DE IMAGEM DO ITEM ===== */
 .item-imagem-section {
     margin-top: 16px;
     padding-top: 16px;
@@ -205,15 +205,8 @@ body {
     cursor: pointer;
     flex-shrink: 0;
 }
-.item-imagem-preview:hover {
-    border-color: var(--poe-gold);
-}
-.item-imagem-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-}
+.item-imagem-preview:hover { border-color: var(--poe-gold); }
+.item-imagem-preview img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .item-imagem-preview .placeholder {
     color: var(--poe-text-dim);
     font-size: 0.75em;
@@ -235,9 +228,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s;
 }
-.item-imagem-preview:hover .overlay-hover {
-    opacity: 1;
-}
+.item-imagem-preview:hover .overlay-hover { opacity: 1; }
 .item-imagem-acoes {
     display: flex;
     flex-direction: column;
@@ -275,7 +266,7 @@ body {
     background: rgba(168,50,50,0.05);
 }
 
-/* ===== DROPDOWN ===== */
+/* ===== DROPDOWN DE RECEITAS ===== */
 .dropdown-wrapper { position: relative; display: inline-block; }
 .dropdown-menu {
     display: none;
@@ -307,9 +298,7 @@ body {
     font-size: 0.65em; color: var(--poe-text-dim);
     overflow: hidden;
 }
-.dropdown-item-thumb img {
-    width: 100%; height: 100%; object-fit: contain;
-}
+.dropdown-item-thumb img { width: 100%; height: 100%; object-fit: contain; }
 .dropdown-item-text { flex: 1; min-width: 0; }
 .dropdown-item-nome {
     color: var(--poe-gold-light);
@@ -418,7 +407,7 @@ body {
 }
 .select-moeda option { background: var(--poe-panel); color: var(--poe-text); }
 
-/* ===== PAINEL DE TAXAS (NOVO) ===== */
+/* ===== PAINEL DE TAXAS ===== */
 .taxas-panel {
     display: flex;
     gap: 16px;
@@ -464,9 +453,9 @@ body {
 .craft-table-wrapper {
     background: var(--poe-panel);
     border: 1px solid var(--poe-border);
-    overflow-x: auto;
     margin-bottom: 18px;
     position: relative;
+    overflow: visible;
 }
 .craft-table-wrapper::before {
     content: '';
@@ -474,6 +463,7 @@ body {
     top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
+    z-index: 1;
 }
 table { width: 100%; border-collapse: collapse; min-width: 1000px; }
 thead { background: rgba(201,168,76,0.08); }
@@ -497,7 +487,7 @@ td {
 tr:hover td { background: rgba(201,168,76,0.03); }
 
 .col-tentativas { width: 10%; min-width: 90px; }
-.col-orbe { width: 26%; min-width: 230px; }
+.col-orbe { width: 26%; min-width: 250px; }
 .col-preco { width: 13%; min-width: 120px; }
 .col-total { width: 15%; min-width: 140px; }
 .col-notas { min-width: 220px; }
@@ -519,23 +509,105 @@ tr:hover td { background: rgba(201,168,76,0.03); }
     box-shadow: 0 0 8px rgba(201,168,76,0.15);
 }
 
-.select-orbe {
+/* ===== COMBOBOX DE ORBE (NOVO) ===== */
+.orbe-combobox {
+    position: relative;
     width: 100%;
-    padding: 8px 10px;
+}
+.orbe-input {
+    width: 100%;
+    padding: 8px 30px 8px 10px;
     background: rgba(0,0,0,0.4);
     border: 1px solid var(--poe-border);
     color: var(--poe-text);
     font-family: inherit;
     font-size: 0.9em;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 30px;
+    cursor: text;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
-.select-orbe:focus { outline: none; border-color: var(--poe-gold); }
-.select-orbe option, .select-orbe optgroup { background: var(--poe-panel); color: var(--poe-text); }
+.orbe-input:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+    box-shadow: 0 0 8px rgba(201,168,76,0.2);
+}
+.orbe-input::placeholder {
+    color: var(--poe-text-dim);
+    font-style: italic;
+    opacity: 0.7;
+}
+.orbe-combobox::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid var(--poe-gold);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.orbe-lista {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    background: #1f1c18;
+    border: 1px solid var(--poe-gold);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.8), 0 0 20px rgba(201,168,76,0.15);
+    z-index: 500;
+}
+.orbe-lista.open { display: block; }
+.orbe-grupo-titulo {
+    padding: 6px 12px;
+    background: rgba(201,168,76,0.12);
+    color: var(--poe-gold);
+    font-size: 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid var(--poe-border);
+}
+.orbe-opcao {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: var(--poe-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(61,53,40,0.2);
+    transition: background 0.1s;
+}
+.orbe-opcao:hover,
+.orbe-opcao.highlight {
+    background: rgba(201,168,76,0.15);
+    color: var(--poe-gold-light);
+}
+.orbe-opcao.highlight {
+    border-left: 3px solid var(--poe-gold);
+    padding-left: 9px;
+}
+.orbe-opcao mark {
+    background: rgba(201,168,76,0.4);
+    color: var(--poe-gold-light);
+    font-weight: 700;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+.orbe-vazio {
+    padding: 16px;
+    text-align: center;
+    color: var(--poe-text-dim);
+    font-style: italic;
+    font-size: 0.85em;
+}
 
 .input-notas {
     width: 100%;
@@ -624,7 +696,7 @@ tr:hover td { background: rgba(201,168,76,0.03); }
     font-family: 'Cinzel', serif;
 }
 .total-divine { font-size: 0.9em; color: var(--poe-text-dim); margin-top: 4px; }
-.total-breakdown { text-align: right; font-size: 0.85em; color: var(--poe-text-dim); }
+.total-breakdown { text-align: right; font-size: 0.85em; color: var(--poe-text-dim); line-height: 1.6; }
 
 .toast {
     position: fixed;
@@ -667,7 +739,6 @@ tr:hover td { background: rgba(201,168,76,0.03); }
         <div class="league-badge">🔮 Preços atualizados via poe.ninja</div>
     </header>
 
-    <!-- HEADER DA RECEITA -->
     <div class="receita-header">
         <div class="receita-titulo">
             <label>📜 Nome da Receita:</label>
@@ -695,7 +766,6 @@ tr:hover td { background: rgba(201,168,76,0.03); }
             </label>
         </div>
 
-        <!-- IMAGEM DO ITEM CRAFTADO (NOVO) -->
         <div class="item-imagem-section">
             <label class="item-imagem-label">🖼️ Imagem do Item Craftado (opcional)</label>
             <div class="item-imagem-area">
@@ -720,7 +790,6 @@ tr:hover td { background: rgba(201,168,76,0.03); }
         </div>
     </div>
 
-    <!-- STATUS BAR -->
     <div class="status-bar">
         <div class="status-indicator">
             <span class="status-dot" id="statusDot"></span>
@@ -745,7 +814,6 @@ tr:hover td { background: rgba(201,168,76,0.03); }
         </div>
     </div>
 
-    <!-- PAINEL DE TAXAS EDITÁVEIS (NOVO) -->
     <div class="taxas-panel" id="taxasPanel">
         <span class="titulo">📊 Taxas de conversão:</span>
         <div class="taxa-item">
@@ -762,7 +830,6 @@ tr:hover td { background: rgba(201,168,76,0.03); }
         <button class="btn-receita" onclick="restaurarTaxasAuto()" style="font-size: 0.75em; padding: 6px 12px;">Auto</button>
     </div>
 
-    <!-- TABELA -->
     <div class="craft-table-wrapper">
         <table>
             <thead>
@@ -796,22 +863,17 @@ tr:hover td { background: rgba(201,168,76,0.03); }
 
 <script>
 // ============================================================
-// LISTA COMPLETA DE ORBES (SEM DUPLICATAS)
+// LISTA COMPLETA DE ORBES COM CATEGORIAS
 // ============================================================
 const ORBES = [
-    // Orbes Principais
     "Mirror of Kalandra","Hinekora's Lock","Fracturing Orb","Perfect Chaos Orb",
     "Perfect Exalted Orb","Divine Orb","Orb of Annulment","Greater Chaos Orb",
     "Chaos Orb","Perfect Regal Orb","Perfect Orb of Transmutation","Orb of Alchemy",
     "Greater Exalted Orb","Greater Orb of Transmutation","Exalted Orb",
     "Greater Orb of Augmentation",
-
-    // Ossos
     "Ancient Jawbone","Ancient Collarbone","Ancient Rib","Preserved Cranium",
     "Altered Collarbone","Preserved Collarbone","Preserved Rib","Preserved Jawbone",
     "Preserved Vertebrae","Gnawed Rib","Gnawed Collarbone","Gnawed Jawbone",
-
-    // Essências — Lesser
     "Lesser Essence of the Body","Lesser Essence of the Mind","Lesser Essence of Enhancement",
     "Lesser Essence of Abrasion","Lesser Essence of Flames","Lesser Essence of Ice",
     "Lesser Essence of Electricity","Lesser Essence of Ruin","Lesser Essence of Battle",
@@ -819,8 +881,6 @@ const ORBES = [
     "Lesser Essence of Seeking","Lesser Essence of Insulation","Lesser Essence of Thawing",
     "Lesser Essence of Grounding","Lesser Essence of Alacrity","Lesser Essence of Opulence",
     "Lesser Essence of Command",
-
-    // Essências — Normal
     "Essence of the Body","Essence of the Mind","Essence of Enhancement",
     "Essence of Abrasion","Essence of Flames","Essence of Ice",
     "Essence of Electricity","Essence of Ruin","Essence of Battle",
@@ -828,16 +888,12 @@ const ORBES = [
     "Essence of Seeking","Essence of Insulation","Essence of Thawing",
     "Essence of Grounding","Essence of Alacrity","Essence of Opulence",
     "Essence of Command",
-
-    // Essências — Greater
     "Greater Essence of the Body","Greater Essence of the Mind","Greater Essence of Enhancement",
     "Greater Essence of Abrasion","Greater Essence of Flames","Greater Essence of Ice",
     "Greater Essence of Electricity","Greater Essence of Ruin","Greater Essence of Battle",
     "Greater Essence of Sorcery","Greater Essence of Haste","Greater Essence of the Infinite",
     "Greater Essence of Seeking","Greater Essence of Insulation","Greater Essence of Thawing",
     "Greater Essence of Grounding","Greater Essence of Alacrity","Greater Essence of Command",
-
-    // Essências — Perfect
     "Perfect Essence of the Body","Perfect Essence of the Mind","Perfect Essence of Enhancement",
     "Perfect Essence of Abrasion","Perfect Essence of Flames","Perfect Essence of Ice",
     "Perfect Essence of Electricity","Perfect Essence of Ruin","Perfect Essence of Battle",
@@ -845,13 +901,9 @@ const ORBES = [
     "Perfect Essence of Seeking","Perfect Essence of Insulation","Perfect Essence of Thawing",
     "Perfect Essence of Grounding","Perfect Essence of Alacrity","Perfect Essence of Opulence",
     "Perfect Essence of Command",
-
-    // Essências Especiais
     "Essence of Hysteria","Essence of Delirium","Essence of Horror",
     "Essence of Insanity","Essence of the Abyss","Essence of the Breach",
     "Greater Essence of Opulence","Greater Essence of Ruin",
-
-    // Omens
     "Omen of Sinistral Annulment","Omen of Sinistral Erasure","Omen of Whittling",
     "Omen of Dextral Annulment","Omen of Dextral Erasure","Omen of Chance",
     "Omen of Light","Omen of Sanctification","Omen of Abyssal Echoes",
@@ -864,8 +916,6 @@ const ORBES = [
     "Omen of Sinistral Alchemy","Omen of Dextral Alchemy",
     "Omen of Sinistral Coronation","Omen of Dextral Coronation",
     "Omen of Greater Annulment",
-
-    // Líquidos
     "Ancient Potent Liquid Contempt","Potent Liquid Ferocity","Potent Liquid Contempt",
     "Concentrated Liquid Suffering","Concentrated Liquid Isolation",
     "Ancient Potent Liquid Melancholy","Concentrated Liquid Fear",
@@ -876,8 +926,6 @@ const ORBES = [
     "Ancient Liquid Paranoia","Diluted Liquid Greed","Ancient Diluted Liquid Greed",
     "Ancient Diluted Liquid Guilt","Ancient Diluted Liquid Ire","Diluted Liquid Guilt",
     "Diluted Liquid Ire","Liquid Paranoia",
-
-    // Catalisadores
     "Refined Sibilant Catalyst","Refined Reaver Catalyst","Refined Necrotic Catalyst",
     "Sibilant Catalyst","Refined Xoph's Catalyst","Reaver Catalyst",
     "Skittering Catalyst","Refined Esh's Catalyst","Refined Tul's Catalyst",
@@ -887,8 +935,6 @@ const ORBES = [
     "Refined Chayula's Catalyst","Chayula's Catalyst","Flesh Catalyst",
     "Refined Adaptive Catalyst","Refined Skittering Catalyst","Uul-Netol's Catalyst",
     "Carapace Catalyst","Adaptive Catalyst",
-
-    // Ligas e Minérios
     "Celestial Alloy","Sovereign Alloy","The Runebinder's Alloy",
     "Warding Starlit Ore","Transcendent Alloy","Olroth's Crest of the Sun",
     "Adaptive Alloy","The Runefather's Alloy","Runic Alloy",
@@ -896,10 +942,29 @@ const ORBES = [
     "Prismatic Alloy","Protective Alloy","Revered Starlit Ore",
     "Uhtred's Crest of the Chalice","Venerable Starlit Ore","Exceptional Verisium",
     "Expansive Alloy","Swift Alloy",
-
-    // Diversos
     "Raven-Touched Shard"
 ];
+
+// Categorização para agrupar no dropdown
+function obterCategoria(orbe) {
+    if (["Mirror of Kalandra","Hinekora's Lock","Fracturing Orb","Perfect Chaos Orb",
+         "Perfect Exalted Orb","Divine Orb","Orb of Annulment","Greater Chaos Orb",
+         "Chaos Orb","Perfect Regal Orb","Perfect Orb of Transmutation","Orb of Alchemy",
+         "Greater Exalted Orb","Greater Orb of Transmutation","Exalted Orb",
+         "Greater Orb of Augmentation"].includes(orbe)) return "Orbes Principais";
+    if (orbe.includes('Jawbone')||orbe.includes('Collarbone')||orbe.includes('Rib')||
+        orbe.includes('Cranium')||orbe.includes('Vertebrae')) return "Ossos";
+    if (orbe.startsWith('Lesser Essence')) return "Essências — Lesser";
+    if (orbe.startsWith('Greater Essence')) return "Essências — Greater";
+    if (orbe.startsWith('Perfect Essence')) return "Essências — Perfect";
+    if (orbe.startsWith('Essence of')) return "Essências — Normal";
+    if (orbe.startsWith('Omen')) return "Omens";
+    if (orbe.includes('Liquid')) return "Líquidos";
+    if (orbe.includes('Catalyst')) return "Catalisadores";
+    if (orbe.includes('Alloy')||orbe.includes('Ore')||orbe.includes('Crest')||
+        orbe.includes('Verisium')) return "Ligas e Minérios";
+    return "Diversos";
+}
 
 // ============================================================
 // ESTADO
@@ -911,9 +976,8 @@ let todasLinhas = [];
 let receitaAtual = { id: null, nome: '', descricao: '', criadoEm: null };
 let moedaReferencia = 'Exalted Orb';
 let imagemItemDataURL = null;
-
-// Taxas manuais (0 = usar auto do poe.ninja)
 let taxasManuais = { divine: 0, chaos: 0 };
+let comboboxAberta = null;
 
 const STORAGE_KEY = 'poe2_craft_receitas_v1';
 const MOEDA_STORAGE_KEY = 'poe2_craft_moeda_ref';
@@ -1022,34 +1086,22 @@ function usarDadosFallback() {
 }
 
 // ============================================================
-// TAXAS — CONVERSÃO CORRIGIDA
+// TAXAS
 // ============================================================
-// Toda conversão passa por Exalted como base.
-// Taxa de referência:
-//   1 Exalted = 1 Exalted (base)
-//   1 Chaos   = X Exalted
-//   1 Divine  = Y Exalted
-
 function obterTaxas() {
-    // Prioridade: manual > poe.ninja > fallback
     let divineEmExalted = 0;
     let chaosEmExalted = 0;
 
-    // Auto do poe.ninja
-    if (precos['Divine Orb'] && precos['Divine Orb'].value > 0 && precos['Divine Orb'].currency === 'Exalted Orb') {
-        divineEmExalted = precos['Divine Orb'].value;
-    } else if (precos['Divine Orb']) {
+    if (precos['Divine Orb'] && precos['Divine Orb'].value > 0) {
         divineEmExalted = precos['Divine Orb'].value;
     }
     if (precos['Chaos Orb'] && precos['Chaos Orb'].value > 0) {
         chaosEmExalted = precos['Chaos Orb'].value;
     }
 
-    // Override manual (se > 0)
     if (taxasManuais.divine > 0) divineEmExalted = taxasManuais.divine;
     if (taxasManuais.chaos > 0) chaosEmExalted = taxasManuais.chaos;
 
-    // Fallback hardcoded se nada funcionou
     if (!divineEmExalted || divineEmExalted <= 0) divineEmExalted = 244;
     if (!chaosEmExalted || chaosEmExalted <= 0) chaosEmExalted = 23;
 
@@ -1069,7 +1121,7 @@ function aplicarTaxasManuais() {
     taxasManuais.chaos = c;
     try { localStorage.setItem(TAXAS_STORAGE_KEY, JSON.stringify(taxasManuais)); } catch (e) {}
     atualizarTotais();
-    mostrarToast(`📊 Taxas aplicadas: 1 Divine = ${d} Ex, 1 Chaos = ${c} Ex`, 1800);
+    mostrarToast(`📊 Taxas aplicadas`, 1500);
 }
 
 function restaurarTaxasAuto() {
@@ -1077,7 +1129,7 @@ function restaurarTaxasAuto() {
     try { localStorage.removeItem(TAXAS_STORAGE_KEY); } catch (e) {}
     atualizarPainelTaxas();
     atualizarTotais();
-    mostrarToast('🔄 Taxas restauradas do poe.ninja', 1500);
+    mostrarToast('🔄 Taxas restauradas', 1200);
 }
 
 function carregarTaxasSalvas() {
@@ -1087,48 +1139,31 @@ function carregarTaxasSalvas() {
     } catch (e) {}
 }
 
-// Converte valor em Exalted para a moeda de referência escolhida.
 function converterParaMoedaRef(valorEmExalted) {
     if (valorEmExalted === undefined || valorEmExalted === null) return null;
-
     const taxas = obterTaxas();
-
     switch (moedaReferencia) {
-        case 'Exalted Orb':
-            return { valor: valorEmExalted, moeda: 'Exalted Orb' };
-        case 'Divine Orb':
-            return { valor: valorEmExalted / taxas.divineEmExalted, moeda: 'Divine Orb' };
-        case 'Chaos Orb':
-            return { valor: valorEmExalted / taxas.chaosEmExalted, moeda: 'Chaos Orb' };
+        case 'Exalted Orb': return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+        case 'Divine Orb': return { valor: valorEmExalted / taxas.divineEmExalted, moeda: 'Divine Orb' };
+        case 'Chaos Orb': return { valor: valorEmExalted / taxas.chaosEmExalted, moeda: 'Chaos Orb' };
         case 'Mirror of Kalandra': {
             const mirror = precos['Mirror of Kalandra'];
-            if (mirror && mirror.value > 0) {
-                return { valor: valorEmExalted / mirror.value, moeda: 'Mirror of Kalandra' };
-            }
+            if (mirror && mirror.value > 0) return { valor: valorEmExalted / mirror.value, moeda: 'Mirror of Kalandra' };
             return { valor: valorEmExalted, moeda: 'Exalted Orb' };
         }
-        default:
-            return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+        default: return { valor: valorEmExalted, moeda: 'Exalted Orb' };
     }
 }
 
-// Retorna o valor unitário de um orbe em Exalted.
-// Se o poe.ninja retornou em Exalted, usa direto.
-// Se retornou em Chaos, converte para Exalted.
 function obterPrecoEmExalted(orbeNome) {
     const p = precos[orbeNome];
     if (!p || !p.value) return null;
-
-    if (p.currency === 'Exalted Orb' || p.currency === 'exalted') {
-        return p.value;
-    }
+    if (p.currency === 'Exalted Orb' || p.currency === 'exalted') return p.value;
     if (p.currency === 'Chaos Orb' || p.currency === 'chaos') {
-        const taxas = obterTaxas();
-        return p.value * taxas.chaosEmExalted;
+        return p.value * obterTaxas().chaosEmExalted;
     }
     if (p.currency === 'Divine Orb' || p.currency === 'divine') {
-        const taxas = obterTaxas();
-        return p.value * taxas.divineEmExalted;
+        return p.value * obterTaxas().divineEmExalted;
     }
     return p.value;
 }
@@ -1137,7 +1172,7 @@ function trocarMoeda(novaMoeda) {
     moedaReferencia = novaMoeda;
     try { localStorage.setItem(MOEDA_STORAGE_KEY, novaMoeda); } catch (e) {}
     atualizarTotais();
-    mostrarToast(`💱 Moeda alterada para ${novaMoeda}`, 1200);
+    mostrarToast(`💱 Moeda: ${novaMoeda}`, 1000);
 }
 
 function carregarMoedaSalva() {
@@ -1157,14 +1192,12 @@ function carregarMoedaSalva() {
 function carregarImagemItem(ev) {
     const f = ev.target.files[0];
     if (!f) return;
-
     if (f.size > 800 * 1024) {
-        if (!confirm(`A imagem tem ${(f.size/1024).toFixed(0)}KB. Recomendado até 500KB. Continuar mesmo assim?`)) {
+        if (!confirm(`A imagem tem ${(f.size/1024).toFixed(0)}KB. Recomendado até 500KB. Continuar?`)) {
             ev.target.value = '';
             return;
         }
     }
-
     const rd = new FileReader();
     rd.onload = e => {
         imagemItemDataURL = e.target.result;
@@ -1182,7 +1215,6 @@ function atualizarPreviewImagem() {
     const overlay = document.getElementById('itemImagemOverlay');
     const btnRemover = document.getElementById('btnRemoverImg');
 
-    // Limpar conteúdo antigo (mantém placeholder e overlay)
     preview.querySelectorAll('img').forEach(el => el.remove());
 
     if (imagemItemDataURL) {
@@ -1206,6 +1238,183 @@ function removerImagemItem() {
     atualizarPreviewImagem();
     salvarReceitaAtual(true);
     mostrarToast('🗑️ Imagem removida', 1000);
+}
+
+// ============================================================
+// COMBOBOX DE ORBE (NOVO)
+// ============================================================
+function criarComboboxOrbe(linha, tdPai) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'orbe-combobox';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'orbe-input';
+    input.value = linha.orbe;
+    input.placeholder = 'Digite para buscar...';
+    input.autocomplete = 'off';
+    input.spellcheck = false;
+
+    const lista = document.createElement('div');
+    lista.className = 'orbe-lista';
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(lista);
+    tdPai.appendChild(wrapper);
+
+    // Estado da combobox
+    let highlightIndex = -1;
+    let opcoesAtuais = [];
+
+    // Abrir lista
+    function abrirLista(filtro = '') {
+        const termo = filtro.toLowerCase().trim();
+        opcoesAtuais = [];
+
+        lista.innerHTML = '';
+
+        // Filtrar e agrupar
+        const grupos = {};
+        ORBES.forEach(orbe => {
+            if (termo && !orbe.toLowerCase().includes(termo)) return;
+            const cat = obterCategoria(orbe);
+            if (!grupos[cat]) grupos[cat] = [];
+            grupos[cat].push(orbe);
+        });
+
+        const ordemCategorias = [
+            'Orbes Principais','Ossos','Essências — Lesser','Essências — Normal',
+            'Essências — Greater','Essências — Perfect','Omens','Líquidos',
+            'Catalisadores','Ligas e Minérios','Diversos'
+        ];
+
+        let total = 0;
+        ordemCategorias.forEach(cat => {
+            if (!grupos[cat] || !grupos[cat].length) return;
+            const titulo = document.createElement('div');
+            titulo.className = 'orbe-grupo-titulo';
+            titulo.textContent = cat;
+            lista.appendChild(titulo);
+
+            grupos[cat].forEach(orbe => {
+                const op = document.createElement('div');
+                op.className = 'orbe-opcao';
+                op.dataset.orbe = orbe;
+
+                // Highlight do termo buscado
+                if (termo) {
+                    const idx = orbe.toLowerCase().indexOf(termo);
+                    if (idx >= 0) {
+                        const antes = orbe.substring(0, idx);
+                        const match = orbe.substring(idx, idx + termo.length);
+                        const depois = orbe.substring(idx + termo.length);
+                        op.innerHTML = escapeHtml(antes) + '<mark>' + escapeHtml(match) + '</mark>' + escapeHtml(depois);
+                    } else {
+                        op.textContent = orbe;
+                    }
+                } else {
+                    op.textContent = orbe;
+                }
+
+                op.addEventListener('mousedown', e => {
+                    e.preventDefault();
+                    selecionarOrbe(orbe);
+                });
+                lista.appendChild(op);
+                opcoesAtuais.push(op);
+                total++;
+            });
+        });
+
+        if (total === 0) {
+            const vazio = document.createElement('div');
+            vazio.className = 'orbe-vazio';
+            vazio.textContent = 'Nenhum orbe encontrado';
+            lista.appendChild(vazio);
+        }
+
+        highlightIndex = -1;
+        lista.classList.add('open');
+        comboboxAberta = wrapper;
+    }
+
+    function fecharLista() {
+        lista.classList.remove('open');
+        if (comboboxAberta === wrapper) comboboxAberta = null;
+    }
+
+    function selecionarOrbe(orbe) {
+        linha.orbe = orbe;
+        input.value = orbe;
+        fecharLista();
+        atualizarTotais();
+        salvarReceitaAtual(true);
+        input.blur();
+    }
+
+    function destacar(delta) {
+        if (!opcoesAtuais.length) return;
+        highlightIndex += delta;
+        if (highlightIndex < 0) highlightIndex = opcoesAtuais.length - 1;
+        if (highlightIndex >= opcoesAtuais.length) highlightIndex = 0;
+        opcoesAtuais.forEach((op, i) => op.classList.toggle('highlight', i === highlightIndex));
+        opcoesAtuais[highlightIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    // Eventos
+    input.addEventListener('focus', () => {
+        input.select();
+        abrirLista(input.value === linha.orbe ? '' : input.value);
+    });
+
+    input.addEventListener('input', (e) => {
+        abrirLista(e.target.value);
+        highlightIndex = -1;
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (!lista.classList.contains('open')) abrirLista(input.value);
+            else destacar(1);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (lista.classList.contains('open')) destacar(-1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (lista.classList.contains('open') && highlightIndex >= 0 && opcoesAtuais[highlightIndex]) {
+                selecionarOrbe(opcoesAtuais[highlightIndex].dataset.orbe);
+            } else if (lista.classList.contains('open') && opcoesAtuais.length > 0) {
+                // Se nada destacado, pega o primeiro
+                selecionarOrbe(opcoesAtuais[0].dataset.orbe);
+            }
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            input.value = linha.orbe; // restaura valor original
+            fecharLista();
+            input.blur();
+        } else if (e.key === 'Tab') {
+            // Se há item destacado, aceita
+            if (lista.classList.contains('open') && highlightIndex >= 0 && opcoesAtuais[highlightIndex]) {
+                selecionarOrbe(opcoesAtuais[highlightIndex].dataset.orbe);
+            } else {
+                fecharLista();
+            }
+        }
+    });
+
+    input.addEventListener('blur', () => {
+        // Se perdeu o foco e o texto não corresponde a nenhum orbe, restaura o valor anterior
+        setTimeout(() => {
+            if (comboboxAberta === wrapper) return;
+            const valor = input.value.trim();
+            if (!ORBES.includes(valor)) {
+                input.value = linha.orbe;
+            }
+        }, 150);
+    });
+
+    return wrapper;
 }
 
 // ============================================================
@@ -1254,66 +1463,9 @@ function renderizarTabela() {
         });
         td1.appendChild(inp1);
 
-        // Orbe
+        // Combobox de Orbe
         const td2 = document.createElement('td');
-        const sel = document.createElement('select');
-        sel.className = 'select-orbe';
-
-        const grupos = {
-            'Orbes Principais': ["Mirror of Kalandra","Hinekora's Lock",'Fracturing Orb','Perfect Chaos Orb','Perfect Exalted Orb','Divine Orb','Orb of Annulment','Greater Chaos Orb','Chaos Orb','Perfect Regal Orb','Perfect Orb of Transmutation','Orb of Alchemy','Greater Exalted Orb','Greater Orb of Transmutation','Exalted Orb','Greater Orb of Augmentation'],
-            'Ossos': ORBES.filter(o => o.includes('Jawbone')||o.includes('Collarbone')||o.includes('Rib')||o.includes('Cranium')||o.includes('Vertebrae')),
-            'Essências — Lesser': ORBES.filter(o => o.startsWith('Lesser Essence')),
-            'Essências — Normal': ORBES.filter(o => o.startsWith('Essence of')),
-            'Essências — Greater': ORBES.filter(o => o.startsWith('Greater Essence')),
-            'Essências — Perfect': ORBES.filter(o => o.startsWith('Perfect Essence')),
-            'Omens': ORBES.filter(o => o.includes('Omen')),
-            'Líquidos': ORBES.filter(o => o.includes('Liquid')),
-            'Catalisadores': ORBES.filter(o => o.includes('Catalyst')),
-            'Ligas e Minérios': ORBES.filter(o => o.includes('Alloy')||o.includes('Ore')||o.includes('Crest')||o.includes('Verisium')),
-            'Diversos': ORBES.filter(o => o.includes('Raven-Touched'))
-        };
-
-        const usados = new Set();
-        Object.entries(grupos).forEach(([g, lista]) => {
-            const fil = lista.filter(o => {
-                if (usados.has(o)) return false;
-                usados.add(o);
-                return true;
-            });
-            if (!fil.length) return;
-            const og = document.createElement('optgroup');
-            og.label = g;
-            fil.forEach(o => {
-                const opt = document.createElement('option');
-                opt.value = o;
-                opt.textContent = o;
-                if (o === linha.orbe) opt.selected = true;
-                og.appendChild(opt);
-            });
-            sel.appendChild(og);
-        });
-
-        // Qualquer orbe restante
-        const rest = ORBES.filter(o => !usados.has(o));
-        if (rest.length) {
-            const og = document.createElement('optgroup');
-            og.label = 'Outros';
-            rest.forEach(o => {
-                const opt = document.createElement('option');
-                opt.value = o;
-                opt.textContent = o;
-                if (o === linha.orbe) opt.selected = true;
-                og.appendChild(opt);
-            });
-            sel.appendChild(og);
-        }
-
-        sel.addEventListener('change', e => {
-            linha.orbe = e.target.value;
-            atualizarTotais();
-            salvarReceitaAtual(true);
-        });
-        td2.appendChild(sel);
+        criarComboboxOrbe(linha, td2);
 
         // Preço unitário
         const td3 = document.createElement('td');
@@ -1358,10 +1510,8 @@ function getPrecoHTML(orbeNome) {
     if (!precosCarregados) return '<span class="preco-carregando">⏳</span>';
     const valorEx = obterPrecoEmExalted(orbeNome);
     if (valorEx === null) return '<span class="preco-nao-disponivel">N/D</span>';
-
     const conv = converterParaMoedaRef(valorEx);
     if (conv === null) return '<span class="preco-nao-disponivel">N/D</span>';
-
     return `<span class="preco-valor">${formatarNumero(conv.valor)}</span>
             <span class="preco-moeda">${conv.moeda}</span>`;
 }
@@ -1370,11 +1520,9 @@ function getTotalHTML(linha) {
     if (!precosCarregados) return '<span class="preco-carregando">—</span>';
     const valorEx = obterPrecoEmExalted(linha.orbe);
     if (valorEx === null) return '<span class="preco-nao-disponivel">—</span>';
-
     const totalEx = valorEx * linha.tentativas;
     const conv = converterParaMoedaRef(totalEx);
     if (conv === null) return '<span class="preco-nao-disponivel">—</span>';
-
     return `<span class="total-valor">${formatarNumero(conv.valor)}</span>
             <span class="preco-moeda">${conv.moeda}</span>`;
 }
@@ -1419,15 +1567,13 @@ function calcularTotalGeral() {
         document.getElementById('custoTotalDivine').textContent = '';
     } else {
         document.getElementById('custoTotal').textContent = `${formatarNumero(conv.valor)} ${conv.moeda}`;
-
-        // Linha secundária com referência cruzada
         const taxas = obterTaxas();
         const div = totalEx / taxas.divineEmExalted;
         const cha = totalEx / taxas.chaosEmExalted;
 
         if (moedaReferencia === 'Exalted Orb') {
             document.getElementById('custoTotalDivine').textContent =
-                `≈ ${formatarNumero(div)} Divine Orbs  •  ≈ ${formatarNumero(cha)} Chaos Orbs`;
+                `≈ ${formatarNumero(div)} Divine  •  ≈ ${formatarNumero(cha)} Chaos`;
         } else if (moedaReferencia === 'Divine Orb') {
             document.getElementById('custoTotalDivine').textContent =
                 `≈ ${formatarNumero(totalEx)} Exalted  •  ≈ ${formatarNumero(cha)} Chaos`;
@@ -1439,7 +1585,6 @@ function calcularTotalGeral() {
         }
     }
 
-    // Breakdown por moeda (sempre em Exalted como base, mas mostra conversão)
     const taxas = obterTaxas();
     const bd = [];
     bd.push(`<strong>${formatarNumero(totalEx)}</strong> Exalted`);
@@ -1460,7 +1605,7 @@ function gravarTodasReceitas(r) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); }
     catch (e) {
         if (e.name === 'QuotaExceededError') {
-            alert('⚠️ Limite de armazenamento atingido. Remova a imagem de alguma receita para liberar espaço.');
+            alert('⚠️ Limite de armazenamento atingido. Remova imagens antigas para liberar espaço.');
         }
     }
 }
@@ -1711,8 +1856,17 @@ document.addEventListener('DOMContentLoaded', () => {
     adicionarLinha('Chaos Orb', 1, '');
     carregarPrecos();
 
+    // Fecha dropdown de receitas ao clicar fora
     document.addEventListener('click', e => {
         if (!e.target.closest('.dropdown-wrapper')) fecharDropdown();
+    });
+
+    // Fecha combobox de orbe ao clicar fora
+    document.addEventListener('mousedown', e => {
+        if (comboboxAberta && !comboboxAberta.contains(e.target)) {
+            comboboxAberta.querySelector('.orbe-lista').classList.remove('open');
+            comboboxAberta = null;
+        }
     });
 
     document.getElementById('receitaNome').addEventListener('blur', () => {
