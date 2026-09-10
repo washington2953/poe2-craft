@@ -170,6 +170,111 @@ body {
     box-shadow: 0 0 15px rgba(201,168,76,0.2);
 }
 
+/* ===== ÁREA DE IMAGEM DO ITEM (NOVO) ===== */
+.item-imagem-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--poe-border);
+}
+.item-imagem-label {
+    color: var(--poe-gold);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    display: block;
+}
+.item-imagem-area {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.item-imagem-preview {
+    width: 180px;
+    height: 180px;
+    border: 2px dashed var(--poe-border);
+    border-radius: 4px;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.item-imagem-preview:hover {
+    border-color: var(--poe-gold);
+}
+.item-imagem-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.item-imagem-preview .placeholder {
+    color: var(--poe-text-dim);
+    font-size: 0.75em;
+    text-align: center;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+.item-imagem-preview .overlay-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    color: var(--poe-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.item-imagem-preview:hover .overlay-hover {
+    opacity: 1;
+}
+.item-imagem-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+.item-imagem-info {
+    color: var(--poe-text-dim);
+    font-size: 0.8em;
+    line-height: 1.5;
+    font-style: italic;
+}
+.btn-img {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.75em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+}
+.btn-img:hover {
+    border-color: var(--poe-gold);
+    color: var(--poe-gold);
+    background: rgba(201,168,76,0.05);
+}
+.btn-img.remover:hover {
+    border-color: var(--poe-red);
+    color: var(--poe-red);
+    background: rgba(168,50,50,0.05);
+}
+
 /* ===== DROPDOWN ===== */
 .dropdown-wrapper { position: relative; display: inline-block; }
 .dropdown-menu {
@@ -192,12 +297,28 @@ body {
     border-bottom: 1px solid rgba(61,53,40,0.4);
 }
 .dropdown-item:hover { background: rgba(201,168,76,0.06); }
-.dropdown-item-info { flex: 1; padding: 10px 14px; cursor: pointer; }
+.dropdown-item-info { flex: 1; padding: 10px 14px; cursor: pointer; display: flex; gap: 10px; align-items: center; }
+.dropdown-item-thumb {
+    width: 32px; height: 32px;
+    border: 1px solid var(--poe-border);
+    background: rgba(0,0,0,0.3);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65em; color: var(--poe-text-dim);
+    overflow: hidden;
+}
+.dropdown-item-thumb img {
+    width: 100%; height: 100%; object-fit: contain;
+}
+.dropdown-item-text { flex: 1; min-width: 0; }
 .dropdown-item-nome {
     color: var(--poe-gold-light);
     font-weight: 700;
     font-size: 0.9em;
     margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .dropdown-item-meta { color: var(--poe-text-dim); font-size: 0.75em; }
 .dropdown-item-del {
@@ -296,6 +417,48 @@ body {
     box-shadow: 0 0 10px rgba(201,168,76,0.15);
 }
 .select-moeda option { background: var(--poe-panel); color: var(--poe-text); }
+
+/* ===== PAINEL DE TAXAS (NOVO) ===== */
+.taxas-panel {
+    display: flex;
+    gap: 16px;
+    padding: 12px 16px;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid var(--poe-border);
+    border-left: 3px solid var(--poe-gold);
+    margin-bottom: 18px;
+    font-size: 0.85em;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.taxas-panel .titulo {
+    color: var(--poe-gold);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+.taxa-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--poe-text-dim);
+    font-size: 0.85em;
+}
+.taxa-item input {
+    width: 80px;
+    padding: 5px 8px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-gold-light);
+    font-family: inherit;
+    font-size: 0.9em;
+    text-align: center;
+}
+.taxa-item input:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+}
 
 /* ===== TABELA ===== */
 .craft-table-wrapper {
@@ -531,6 +694,30 @@ tr:hover td { background: rgba(201,168,76,0.03); }
                 <input type="file" accept=".json" onchange="importarReceita(event)" style="display:none;">
             </label>
         </div>
+
+        <!-- IMAGEM DO ITEM CRAFTADO (NOVO) -->
+        <div class="item-imagem-section">
+            <label class="item-imagem-label">🖼️ Imagem do Item Craftado (opcional)</label>
+            <div class="item-imagem-area">
+                <div class="item-imagem-preview" id="itemImagemPreview" onclick="document.getElementById('itemImagemInput').click()">
+                    <div class="placeholder" id="itemImagemPlaceholder">
+                        Clique para<br>anexar imagem
+                    </div>
+                    <div class="overlay-hover" id="itemImagemOverlay" style="display:none;">
+                        Trocar imagem
+                    </div>
+                </div>
+                <div class="item-imagem-acoes">
+                    <input type="file" id="itemImagemInput" accept="image/*" style="display:none;" onchange="carregarImagemItem(event)">
+                    <button class="btn-img" onclick="document.getElementById('itemImagemInput').click()">📁 Escolher imagem</button>
+                    <button class="btn-img remover" onclick="removerImagemItem()" id="btnRemoverImg" style="display:none;">🗑️ Remover imagem</button>
+                    <div class="item-imagem-info" id="itemImagemInfo">
+                        A imagem é salva junto com a receita no navegador (localStorage).<br>
+                        Recomendado: até 500KB para não estourar o limite.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- STATUS BAR -->
@@ -556,6 +743,23 @@ tr:hover td { background: rgba(201,168,76,0.03); }
                 ↻ Atualizar Preços
             </button>
         </div>
+    </div>
+
+    <!-- PAINEL DE TAXAS EDITÁVEIS (NOVO) -->
+    <div class="taxas-panel" id="taxasPanel">
+        <span class="titulo">📊 Taxas de conversão:</span>
+        <div class="taxa-item">
+            <span>1 Divine =</span>
+            <input type="number" id="taxaDivine" step="0.01" min="0" value="244">
+            <span>Exalted</span>
+        </div>
+        <div class="taxa-item">
+            <span>1 Chaos =</span>
+            <input type="number" id="taxaChaos" step="0.01" min="0" value="23">
+            <span>Exalted</span>
+        </div>
+        <button class="btn-receita" onclick="aplicarTaxasManuais()" style="font-size: 0.75em; padding: 6px 12px;">Aplicar</button>
+        <button class="btn-receita" onclick="restaurarTaxasAuto()" style="font-size: 0.75em; padding: 6px 12px;">Auto</button>
     </div>
 
     <!-- TABELA -->
@@ -592,27 +796,76 @@ tr:hover td { background: rgba(201,168,76,0.03); }
 
 <script>
 // ============================================================
-// LISTA DE ORBES
+// LISTA COMPLETA DE ORBES (SEM DUPLICATAS)
 // ============================================================
 const ORBES = [
+    // Orbes Principais
     "Mirror of Kalandra","Hinekora's Lock","Fracturing Orb","Perfect Chaos Orb",
     "Perfect Exalted Orb","Divine Orb","Orb of Annulment","Greater Chaos Orb",
     "Chaos Orb","Perfect Regal Orb","Perfect Orb of Transmutation","Orb of Alchemy",
     "Greater Exalted Orb","Greater Orb of Transmutation","Exalted Orb",
-    "Greater Orb of Augmentation","Ancient Jawbone","Ancient Collarbone","Ancient Rib",
-    "Preserved Cranium","Altered Collarbone","Preserved Collarbone","Preserved Rib",
-    "Preserved Jawbone","Gnawed Rib","Gnawed Collarbone","Gnawed Jawbone",
-    "Essence of Hysteria","Essence of Horror","Essence of the Breach",
-    "Greater Essence of Opulence","Essence of Opulence","Essence of the Abyss",
-    "Essence of Delirium","Essence of Insanity","Perfect Essence of Battle",
-    "Perfect Essence of Opulence","Perfect Essence of the Mind","Lesser Essence of Command",
-    "Perfect Essence of Sorcery","Perfect Essence of Enhancement","Greater Essence of Ruin",
-    "Perfect Essence of Haste","Omen of Sinistral Annulment","Omen of Sinistral Erasure",
-    "Omen of Whittling","Omen of Dextral Annulment","Omen of Dextral Erasure",
-    "Omen of Chance","Omen of Light","Omen of Sanctification","Omen of Abyssal Echoes",
-    "Omen of Dextral Crystallisation","Omen of the Blessed","Omen of Catalysing Exaltation",
-    "Omen of Sinistral Exaltation","Omen of Dextral Exaltation","Omen of Putrefaction",
-    "Omen of Greater Exaltation","Omen of Dextral Necromancy","Omen of Sinistral Necromancy",
+    "Greater Orb of Augmentation",
+
+    // Ossos
+    "Ancient Jawbone","Ancient Collarbone","Ancient Rib","Preserved Cranium",
+    "Altered Collarbone","Preserved Collarbone","Preserved Rib","Preserved Jawbone",
+    "Preserved Vertebrae","Gnawed Rib","Gnawed Collarbone","Gnawed Jawbone",
+
+    // Essências — Lesser
+    "Lesser Essence of the Body","Lesser Essence of the Mind","Lesser Essence of Enhancement",
+    "Lesser Essence of Abrasion","Lesser Essence of Flames","Lesser Essence of Ice",
+    "Lesser Essence of Electricity","Lesser Essence of Ruin","Lesser Essence of Battle",
+    "Lesser Essence of Sorcery","Lesser Essence of Haste","Lesser Essence of the Infinite",
+    "Lesser Essence of Seeking","Lesser Essence of Insulation","Lesser Essence of Thawing",
+    "Lesser Essence of Grounding","Lesser Essence of Alacrity","Lesser Essence of Opulence",
+    "Lesser Essence of Command",
+
+    // Essências — Normal
+    "Essence of the Body","Essence of the Mind","Essence of Enhancement",
+    "Essence of Abrasion","Essence of Flames","Essence of Ice",
+    "Essence of Electricity","Essence of Ruin","Essence of Battle",
+    "Essence of Sorcery","Essence of Haste","Essence of the Infinite",
+    "Essence of Seeking","Essence of Insulation","Essence of Thawing",
+    "Essence of Grounding","Essence of Alacrity","Essence of Opulence",
+    "Essence of Command",
+
+    // Essências — Greater
+    "Greater Essence of the Body","Greater Essence of the Mind","Greater Essence of Enhancement",
+    "Greater Essence of Abrasion","Greater Essence of Flames","Greater Essence of Ice",
+    "Greater Essence of Electricity","Greater Essence of Ruin","Greater Essence of Battle",
+    "Greater Essence of Sorcery","Greater Essence of Haste","Greater Essence of the Infinite",
+    "Greater Essence of Seeking","Greater Essence of Insulation","Greater Essence of Thawing",
+    "Greater Essence of Grounding","Greater Essence of Alacrity","Greater Essence of Command",
+
+    // Essências — Perfect
+    "Perfect Essence of the Body","Perfect Essence of the Mind","Perfect Essence of Enhancement",
+    "Perfect Essence of Abrasion","Perfect Essence of Flames","Perfect Essence of Ice",
+    "Perfect Essence of Electricity","Perfect Essence of Ruin","Perfect Essence of Battle",
+    "Perfect Essence of Sorcery","Perfect Essence of Haste","Perfect Essence of the Infinite",
+    "Perfect Essence of Seeking","Perfect Essence of Insulation","Perfect Essence of Thawing",
+    "Perfect Essence of Grounding","Perfect Essence of Alacrity","Perfect Essence of Opulence",
+    "Perfect Essence of Command",
+
+    // Essências Especiais
+    "Essence of Hysteria","Essence of Delirium","Essence of Horror",
+    "Essence of Insanity","Essence of the Abyss","Essence of the Breach",
+    "Greater Essence of Opulence","Greater Essence of Ruin",
+
+    // Omens
+    "Omen of Sinistral Annulment","Omen of Sinistral Erasure","Omen of Whittling",
+    "Omen of Dextral Annulment","Omen of Dextral Erasure","Omen of Chance",
+    "Omen of Light","Omen of Sanctification","Omen of Abyssal Echoes",
+    "Omen of Dextral Crystallisation","Omen of the Blessed",
+    "Omen of Catalysing Exaltation","Omen of Sinistral Exaltation",
+    "Omen of Dextral Exaltation","Omen of Putrefaction","Omen of Greater Exaltation",
+    "Omen of Dextral Necromancy","Omen of Sinistral Necromancy",
+    "Omen of the Sovereign","Omen of the Liege","Omen of the Blackblooded",
+    "Omen of Refreshment","Omen of Resurgence","Omen of Amelioration",
+    "Omen of Sinistral Alchemy","Omen of Dextral Alchemy",
+    "Omen of Sinistral Coronation","Omen of Dextral Coronation",
+    "Omen of Greater Annulment",
+
+    // Líquidos
     "Ancient Potent Liquid Contempt","Potent Liquid Ferocity","Potent Liquid Contempt",
     "Concentrated Liquid Suffering","Concentrated Liquid Isolation",
     "Ancient Potent Liquid Melancholy","Concentrated Liquid Fear",
@@ -622,35 +875,49 @@ const ORBES = [
     "Ancient Liquid Disgust","Ancient Liquid Envy","Liquid Envy",
     "Ancient Liquid Paranoia","Diluted Liquid Greed","Ancient Diluted Liquid Greed",
     "Ancient Diluted Liquid Guilt","Ancient Diluted Liquid Ire","Diluted Liquid Guilt",
-    "Refined Sibilant Catalyst","Diluted Liquid Ire","Refined Reaver Catalyst",
-    "Refined Necrotic Catalyst","Sibilant Catalyst","Refined Xoph's Catalyst",
-    "Reaver Catalyst","Skittering Catalyst","Refined Esh's Catalyst",
-    "Refined Tul's Catalyst","Xoph's Catalyst","Necrotic Catalyst",
-    "Refined Carapace Catalyst","Esh's Catalyst","Tul's Catalyst","Neural Catalyst",
+    "Diluted Liquid Ire","Liquid Paranoia",
+
+    // Catalisadores
+    "Refined Sibilant Catalyst","Refined Reaver Catalyst","Refined Necrotic Catalyst",
+    "Sibilant Catalyst","Refined Xoph's Catalyst","Reaver Catalyst",
+    "Skittering Catalyst","Refined Esh's Catalyst","Refined Tul's Catalyst",
+    "Xoph's Catalyst","Necrotic Catalyst","Refined Carapace Catalyst",
+    "Esh's Catalyst","Tul's Catalyst","Neural Catalyst",
     "Refined Uul-Netol's Catalyst","Refined Flesh Catalyst","Refined Neural Catalyst",
     "Refined Chayula's Catalyst","Chayula's Catalyst","Flesh Catalyst",
     "Refined Adaptive Catalyst","Refined Skittering Catalyst","Uul-Netol's Catalyst",
-    "Carapace Catalyst","Adaptive Catalyst","Celestial Alloy","Sovereign Alloy",
-    "The Runebinder's Alloy","Warding Starlit Ore","Transcendent Alloy",
-    "Olroth's Crest of the Sun","Adaptive Alloy","The Runefather's Alloy",
-    "Runic Alloy","Veridical Starlit Ore","Mystic Alloy","Cyclonic Alloy",
+    "Carapace Catalyst","Adaptive Catalyst",
+
+    // Ligas e Minérios
+    "Celestial Alloy","Sovereign Alloy","The Runebinder's Alloy",
+    "Warding Starlit Ore","Transcendent Alloy","Olroth's Crest of the Sun",
+    "Adaptive Alloy","The Runefather's Alloy","Runic Alloy",
+    "Veridical Starlit Ore","Mystic Alloy","Cyclonic Alloy",
     "Prismatic Alloy","Protective Alloy","Revered Starlit Ore",
-    "Uhtred's Crest of the Chalice","Venerable Starlit Ore","Exceptional Verisium"
+    "Uhtred's Crest of the Chalice","Venerable Starlit Ore","Exceptional Verisium",
+    "Expansive Alloy","Swift Alloy",
+
+    // Diversos
+    "Raven-Touched Shard"
 ];
 
 // ============================================================
-// ESTADO GLOBAL
+// ESTADO
 // ============================================================
 let precos = {};
 let precosCarregados = false;
 let linhaIdCounter = 0;
 let todasLinhas = [];
 let receitaAtual = { id: null, nome: '', descricao: '', criadoEm: null };
-
 let moedaReferencia = 'Exalted Orb';
+let imagemItemDataURL = null;
+
+// Taxas manuais (0 = usar auto do poe.ninja)
+let taxasManuais = { divine: 0, chaos: 0 };
 
 const STORAGE_KEY = 'poe2_craft_receitas_v1';
 const MOEDA_STORAGE_KEY = 'poe2_craft_moeda_ref';
+const TAXAS_STORAGE_KEY = 'poe2_craft_taxas_manuais';
 
 // ============================================================
 // API — CARREGAR PREÇOS
@@ -665,7 +932,6 @@ async function carregarPrecos() {
     btnRefresh.disabled = true;
 
     const targetUrl = 'https://poe.ninja/poe2/api/economy/exchange/current/overview?league=Forbidden%20Rites&type=Currency';
-
     const proxies = [
         `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
         `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
@@ -679,9 +945,7 @@ async function carregarPrecos() {
             if (!r.ok) throw new Error(`HTTP ${r.status}`);
             dados = await r.json();
             break;
-        } catch (e) {
-            console.warn('[Proxy] falhou:', e.message);
-        }
+        } catch (e) { console.warn('[Proxy] falhou:', e.message); }
     }
 
     if (!dados) {
@@ -699,6 +963,7 @@ async function carregarPrecos() {
         document.getElementById('lastUpdate').textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
         precosCarregados = true;
         btnRefresh.disabled = false;
+        atualizarPainelTaxas();
         recalcularTudo();
     } catch (e) {
         console.error(e);
@@ -709,14 +974,10 @@ async function carregarPrecos() {
 
 function processarDados(dados) {
     precos = {};
-
     if (dados.lines && dados.items) {
         const itemsMap = {};
-        if (Array.isArray(dados.items)) {
-            dados.items.forEach(i => itemsMap[i.id] = i.name);
-        } else {
-            Object.entries(dados.items).forEach(([id, i]) => itemsMap[id] = i.name || i);
-        }
+        if (Array.isArray(dados.items)) dados.items.forEach(i => itemsMap[i.id] = i.name);
+        else Object.entries(dados.items).forEach(([id, i]) => itemsMap[id] = i.name || i);
         const primary = dados.core?.primary || 'Exalted Orb';
         dados.lines.forEach(line => {
             const nome = line.id || itemsMap[line.id];
@@ -736,48 +997,140 @@ function processarDados(dados) {
 
 function usarDadosFallback() {
     precos = {
-        "Mirror of Kalandra": { value: 1600, currency: "Exalted Orb" },
-        "Hinekora's Lock": { value: 1600, currency: "Exalted Orb" },
-        "Fracturing Orb": { value: 329, currency: "Exalted Orb" },
-        "Perfect Chaos Orb": { value: 8.0, currency: "Exalted Orb" },
-        "Perfect Exalted Orb": { value: 2.1, currency: "Exalted Orb" },
-        "Divine Orb": { value: 1.8, currency: "Exalted Orb" },
-        "Orb of Annulment": { value: 1.6, currency: "Exalted Orb" },
-        "Greater Chaos Orb": { value: 1.6, currency: "Exalted Orb" },
-        "Chaos Orb": { value: 1.6, currency: "Exalted Orb" },
-        "Perfect Regal Orb": { value: 11, currency: "Exalted Orb" },
-        "Orb of Alchemy": { value: 8.7, currency: "Exalted Orb" },
-        "Greater Exalted Orb": { value: 7.0, currency: "Exalted Orb" },
-        "Greater Orb of Transmutation": { value: 6.5, currency: "Exalted Orb" },
-        "Exalted Orb": { value: 1.0, currency: "Exalted Orb" },
-        "Greater Orb of Augmentation": { value: 5.0, currency: "Exalted Orb" }
+        "Mirror of Kalandra": { value: 390000, currency: "Exalted Orb" },
+        "Hinekora's Lock": { value: 13000, currency: "Exalted Orb" },
+        "Fracturing Orb": { value: 5000, currency: "Exalted Orb" },
+        "Perfect Chaos Orb": { value: 460, currency: "Exalted Orb" },
+        "Perfect Exalted Orb": { value: 51, currency: "Exalted Orb" },
+        "Divine Orb": { value: 244, currency: "Exalted Orb" },
+        "Orb of Annulment": { value: 23, currency: "Exalted Orb" },
+        "Greater Chaos Orb": { value: 50, currency: "Exalted Orb" },
+        "Chaos Orb": { value: 23, currency: "Exalted Orb" },
+        "Perfect Regal Orb": { value: 46, currency: "Exalted Orb" },
+        "Orb of Alchemy": { value: 12, currency: "Exalted Orb" },
+        "Greater Exalted Orb": { value: 30, currency: "Exalted Orb" },
+        "Greater Orb of Transmutation": { value: 8, currency: "Exalted Orb" },
+        "Exalted Orb": { value: 1, currency: "Exalted Orb" },
+        "Greater Orb of Augmentation": { value: 5, currency: "Exalted Orb" }
     };
     statusText.textContent = `${Object.keys(precos).length} orbes (fallback)`;
     statusDot.className = 'status-dot online';
     document.getElementById('lastUpdate').textContent = `Fallback: ${new Date().toLocaleTimeString('pt-BR')}`;
     precosCarregados = true;
+    atualizarPainelTaxas();
     recalcularTudo();
 }
 
 // ============================================================
-// CONVERSÃO DE MOEDA
+// TAXAS — CONVERSÃO CORRIGIDA
 // ============================================================
+// Toda conversão passa por Exalted como base.
+// Taxa de referência:
+//   1 Exalted = 1 Exalted (base)
+//   1 Chaos   = X Exalted
+//   1 Divine  = Y Exalted
+
+function obterTaxas() {
+    // Prioridade: manual > poe.ninja > fallback
+    let divineEmExalted = 0;
+    let chaosEmExalted = 0;
+
+    // Auto do poe.ninja
+    if (precos['Divine Orb'] && precos['Divine Orb'].value > 0 && precos['Divine Orb'].currency === 'Exalted Orb') {
+        divineEmExalted = precos['Divine Orb'].value;
+    } else if (precos['Divine Orb']) {
+        divineEmExalted = precos['Divine Orb'].value;
+    }
+    if (precos['Chaos Orb'] && precos['Chaos Orb'].value > 0) {
+        chaosEmExalted = precos['Chaos Orb'].value;
+    }
+
+    // Override manual (se > 0)
+    if (taxasManuais.divine > 0) divineEmExalted = taxasManuais.divine;
+    if (taxasManuais.chaos > 0) chaosEmExalted = taxasManuais.chaos;
+
+    // Fallback hardcoded se nada funcionou
+    if (!divineEmExalted || divineEmExalted <= 0) divineEmExalted = 244;
+    if (!chaosEmExalted || chaosEmExalted <= 0) chaosEmExalted = 23;
+
+    return { divineEmExalted, chaosEmExalted };
+}
+
+function atualizarPainelTaxas() {
+    const taxas = obterTaxas();
+    document.getElementById('taxaDivine').value = taxas.divineEmExalted.toFixed(2);
+    document.getElementById('taxaChaos').value = taxas.chaosEmExalted.toFixed(2);
+}
+
+function aplicarTaxasManuais() {
+    const d = parseFloat(document.getElementById('taxaDivine').value) || 0;
+    const c = parseFloat(document.getElementById('taxaChaos').value) || 0;
+    taxasManuais.divine = d;
+    taxasManuais.chaos = c;
+    try { localStorage.setItem(TAXAS_STORAGE_KEY, JSON.stringify(taxasManuais)); } catch (e) {}
+    atualizarTotais();
+    mostrarToast(`📊 Taxas aplicadas: 1 Divine = ${d} Ex, 1 Chaos = ${c} Ex`, 1800);
+}
+
+function restaurarTaxasAuto() {
+    taxasManuais = { divine: 0, chaos: 0 };
+    try { localStorage.removeItem(TAXAS_STORAGE_KEY); } catch (e) {}
+    atualizarPainelTaxas();
+    atualizarTotais();
+    mostrarToast('🔄 Taxas restauradas do poe.ninja', 1500);
+}
+
+function carregarTaxasSalvas() {
+    try {
+        const raw = localStorage.getItem(TAXAS_STORAGE_KEY);
+        if (raw) taxasManuais = JSON.parse(raw);
+    } catch (e) {}
+}
+
+// Converte valor em Exalted para a moeda de referência escolhida.
 function converterParaMoedaRef(valorEmExalted) {
     if (valorEmExalted === undefined || valorEmExalted === null) return null;
 
-    if (moedaReferencia === 'Exalted Orb') {
-        return { valor: valorEmExalted, moeda: 'Exalted Orb' };
-    }
+    const taxas = obterTaxas();
 
-    const moedaPreco = precos[moedaReferencia];
-    if (!moedaPreco || !moedaPreco.value || moedaPreco.value <= 0) {
-        return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+    switch (moedaReferencia) {
+        case 'Exalted Orb':
+            return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+        case 'Divine Orb':
+            return { valor: valorEmExalted / taxas.divineEmExalted, moeda: 'Divine Orb' };
+        case 'Chaos Orb':
+            return { valor: valorEmExalted / taxas.chaosEmExalted, moeda: 'Chaos Orb' };
+        case 'Mirror of Kalandra': {
+            const mirror = precos['Mirror of Kalandra'];
+            if (mirror && mirror.value > 0) {
+                return { valor: valorEmExalted / mirror.value, moeda: 'Mirror of Kalandra' };
+            }
+            return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+        }
+        default:
+            return { valor: valorEmExalted, moeda: 'Exalted Orb' };
     }
+}
 
-    return {
-        valor: valorEmExalted / moedaPreco.value,
-        moeda: moedaReferencia
-    };
+// Retorna o valor unitário de um orbe em Exalted.
+// Se o poe.ninja retornou em Exalted, usa direto.
+// Se retornou em Chaos, converte para Exalted.
+function obterPrecoEmExalted(orbeNome) {
+    const p = precos[orbeNome];
+    if (!p || !p.value) return null;
+
+    if (p.currency === 'Exalted Orb' || p.currency === 'exalted') {
+        return p.value;
+    }
+    if (p.currency === 'Chaos Orb' || p.currency === 'chaos') {
+        const taxas = obterTaxas();
+        return p.value * taxas.chaosEmExalted;
+    }
+    if (p.currency === 'Divine Orb' || p.currency === 'divine') {
+        const taxas = obterTaxas();
+        return p.value * taxas.divineEmExalted;
+    }
+    return p.value;
 }
 
 function trocarMoeda(novaMoeda) {
@@ -796,6 +1149,63 @@ function carregarMoedaSalva() {
             if (sel) sel.value = salva;
         }
     } catch (e) {}
+}
+
+// ============================================================
+// IMAGEM DO ITEM
+// ============================================================
+function carregarImagemItem(ev) {
+    const f = ev.target.files[0];
+    if (!f) return;
+
+    if (f.size > 800 * 1024) {
+        if (!confirm(`A imagem tem ${(f.size/1024).toFixed(0)}KB. Recomendado até 500KB. Continuar mesmo assim?`)) {
+            ev.target.value = '';
+            return;
+        }
+    }
+
+    const rd = new FileReader();
+    rd.onload = e => {
+        imagemItemDataURL = e.target.result;
+        atualizarPreviewImagem();
+        salvarReceitaAtual(true);
+        mostrarToast('🖼️ Imagem anexada', 1200);
+    };
+    rd.readAsDataURL(f);
+    ev.target.value = '';
+}
+
+function atualizarPreviewImagem() {
+    const preview = document.getElementById('itemImagemPreview');
+    const placeholder = document.getElementById('itemImagemPlaceholder');
+    const overlay = document.getElementById('itemImagemOverlay');
+    const btnRemover = document.getElementById('btnRemoverImg');
+
+    // Limpar conteúdo antigo (mantém placeholder e overlay)
+    preview.querySelectorAll('img').forEach(el => el.remove());
+
+    if (imagemItemDataURL) {
+        const img = document.createElement('img');
+        img.src = imagemItemDataURL;
+        img.alt = 'Item craftado';
+        preview.insertBefore(img, placeholder);
+        placeholder.style.display = 'none';
+        overlay.style.display = 'flex';
+        btnRemover.style.display = 'block';
+    } else {
+        placeholder.style.display = 'block';
+        overlay.style.display = 'none';
+        btnRemover.style.display = 'none';
+    }
+}
+
+function removerImagemItem() {
+    if (!confirm('Remover a imagem do item?')) return;
+    imagemItemDataURL = null;
+    atualizarPreviewImagem();
+    salvarReceitaAtual(true);
+    mostrarToast('🗑️ Imagem removida', 1000);
 }
 
 // ============================================================
@@ -851,17 +1261,25 @@ function renderizarTabela() {
 
         const grupos = {
             'Orbes Principais': ["Mirror of Kalandra","Hinekora's Lock",'Fracturing Orb','Perfect Chaos Orb','Perfect Exalted Orb','Divine Orb','Orb of Annulment','Greater Chaos Orb','Chaos Orb','Perfect Regal Orb','Perfect Orb of Transmutation','Orb of Alchemy','Greater Exalted Orb','Greater Orb of Transmutation','Exalted Orb','Greater Orb of Augmentation'],
-            'Ossos': ORBES.filter(o => o.includes('Jawbone')||o.includes('Collarbone')||o.includes('Rib')||o.includes('Cranium')),
-            'Essências': ORBES.filter(o => o.includes('Essence')),
+            'Ossos': ORBES.filter(o => o.includes('Jawbone')||o.includes('Collarbone')||o.includes('Rib')||o.includes('Cranium')||o.includes('Vertebrae')),
+            'Essências — Lesser': ORBES.filter(o => o.startsWith('Lesser Essence')),
+            'Essências — Normal': ORBES.filter(o => o.startsWith('Essence of')),
+            'Essências — Greater': ORBES.filter(o => o.startsWith('Greater Essence')),
+            'Essências — Perfect': ORBES.filter(o => o.startsWith('Perfect Essence')),
             'Omens': ORBES.filter(o => o.includes('Omen')),
             'Líquidos': ORBES.filter(o => o.includes('Liquid')),
             'Catalisadores': ORBES.filter(o => o.includes('Catalyst')),
-            'Ligas e Minérios': ORBES.filter(o => o.includes('Alloy')||o.includes('Ore')||o.includes('Crest')||o.includes('Verisium'))
+            'Ligas e Minérios': ORBES.filter(o => o.includes('Alloy')||o.includes('Ore')||o.includes('Crest')||o.includes('Verisium')),
+            'Diversos': ORBES.filter(o => o.includes('Raven-Touched'))
         };
 
         const usados = new Set();
         Object.entries(grupos).forEach(([g, lista]) => {
-            const fil = lista.filter(o => { if (usados.has(o)) return false; usados.add(o); return true; });
+            const fil = lista.filter(o => {
+                if (usados.has(o)) return false;
+                usados.add(o);
+                return true;
+            });
             if (!fil.length) return;
             const og = document.createElement('optgroup');
             og.label = g;
@@ -875,6 +1293,7 @@ function renderizarTabela() {
             sel.appendChild(og);
         });
 
+        // Qualquer orbe restante
         const rest = ORBES.filter(o => !usados.has(o));
         if (rest.length) {
             const og = document.createElement('optgroup');
@@ -937,10 +1356,10 @@ function renderizarTabela() {
 
 function getPrecoHTML(orbeNome) {
     if (!precosCarregados) return '<span class="preco-carregando">⏳</span>';
-    const p = precos[orbeNome];
-    if (!p) return '<span class="preco-nao-disponivel">N/D</span>';
+    const valorEx = obterPrecoEmExalted(orbeNome);
+    if (valorEx === null) return '<span class="preco-nao-disponivel">N/D</span>';
 
-    const conv = converterParaMoedaRef(p.value);
+    const conv = converterParaMoedaRef(valorEx);
     if (conv === null) return '<span class="preco-nao-disponivel">N/D</span>';
 
     return `<span class="preco-valor">${formatarNumero(conv.valor)}</span>
@@ -949,11 +1368,11 @@ function getPrecoHTML(orbeNome) {
 
 function getTotalHTML(linha) {
     if (!precosCarregados) return '<span class="preco-carregando">—</span>';
-    const p = precos[linha.orbe];
-    if (!p) return '<span class="preco-nao-disponivel">—</span>';
+    const valorEx = obterPrecoEmExalted(linha.orbe);
+    if (valorEx === null) return '<span class="preco-nao-disponivel">—</span>';
 
-    const totalExalted = p.value * linha.tentativas;
-    const conv = converterParaMoedaRef(totalExalted);
+    const totalEx = valorEx * linha.tentativas;
+    const conv = converterParaMoedaRef(totalEx);
     if (conv === null) return '<span class="preco-nao-disponivel">—</span>';
 
     return `<span class="total-valor">${formatarNumero(conv.valor)}</span>
@@ -986,47 +1405,46 @@ function recalcularTudo() {
 function calcularTotalGeral() {
     if (!precosCarregados) return;
 
-    let totalExalted = 0;
+    let totalEx = 0;
     todasLinhas.forEach(l => {
-        const p = precos[l.orbe];
-        if (!p) return;
-        totalExalted += p.value * l.tentativas;
+        const v = obterPrecoEmExalted(l.orbe);
+        if (v === null) return;
+        totalEx += v * l.tentativas;
     });
 
-    const conv = converterParaMoedaRef(totalExalted);
+    const conv = converterParaMoedaRef(totalEx);
 
-    if (conv === null || totalExalted === 0) {
+    if (conv === null || totalEx === 0) {
         document.getElementById('custoTotal').textContent = '—';
         document.getElementById('custoTotalDivine').textContent = '';
     } else {
         document.getElementById('custoTotal').textContent = `${formatarNumero(conv.valor)} ${conv.moeda}`;
 
-        const divP = precos['Divine Orb'];
-        const exP = precos['Exalted Orb'];
+        // Linha secundária com referência cruzada
+        const taxas = obterTaxas();
+        const div = totalEx / taxas.divineEmExalted;
+        const cha = totalEx / taxas.chaosEmExalted;
 
-        if (moedaReferencia !== 'Divine Orb' && divP && divP.value > 0) {
+        if (moedaReferencia === 'Exalted Orb') {
             document.getElementById('custoTotalDivine').textContent =
-                `≈ ${formatarNumero(totalExalted / divP.value)} Divine Orbs`;
-        } else if (moedaReferencia !== 'Exalted Orb' && exP) {
+                `≈ ${formatarNumero(div)} Divine Orbs  •  ≈ ${formatarNumero(cha)} Chaos Orbs`;
+        } else if (moedaReferencia === 'Divine Orb') {
             document.getElementById('custoTotalDivine').textContent =
-                `≈ ${formatarNumero(totalExalted)} Exalted Orbs`;
+                `≈ ${formatarNumero(totalEx)} Exalted  •  ≈ ${formatarNumero(cha)} Chaos`;
+        } else if (moedaReferencia === 'Chaos Orb') {
+            document.getElementById('custoTotalDivine').textContent =
+                `≈ ${formatarNumero(totalEx)} Exalted  •  ≈ ${formatarNumero(div)} Divine`;
         } else {
             document.getElementById('custoTotalDivine').textContent = '';
         }
     }
 
-    const tot = {};
-    todasLinhas.forEach(l => {
-        const p = precos[l.orbe];
-        if (!p) return;
-        const v = p.value * l.tentativas;
-        tot[p.currency] = (tot[p.currency] || 0) + v;
-    });
-
+    // Breakdown por moeda (sempre em Exalted como base, mas mostra conversão)
+    const taxas = obterTaxas();
     const bd = [];
-    Object.entries(tot).forEach(([m, v]) => {
-        if (v > 0) bd.push(`${formatarNumero(v)} ${m}`);
-    });
+    bd.push(`<strong>${formatarNumero(totalEx)}</strong> Exalted`);
+    bd.push(`<strong>${formatarNumero(totalEx / taxas.divineEmExalted)}</strong> Divine`);
+    bd.push(`<strong>${formatarNumero(totalEx / taxas.chaosEmExalted)}</strong> Chaos`);
     document.getElementById('breakdown').innerHTML = bd.join('<br>');
 }
 
@@ -1039,7 +1457,12 @@ function obterTodasReceitas() {
 }
 
 function gravarTodasReceitas(r) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); } catch (e) {}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); }
+    catch (e) {
+        if (e.name === 'QuotaExceededError') {
+            alert('⚠️ Limite de armazenamento atingido. Remova a imagem de alguma receita para liberar espaço.');
+        }
+    }
 }
 
 function salvarReceitaAtual(silencioso = false) {
@@ -1056,6 +1479,7 @@ function salvarReceitaAtual(silencioso = false) {
 
     receitas[id] = {
         id, nome, descricao,
+        imagem: imagemItemDataURL || null,
         linhas: todasLinhas.map(l => ({
             tentativas: l.tentativas,
             orbe: l.orbe,
@@ -1079,8 +1503,10 @@ function salvarReceitaAtual(silencioso = false) {
 function novaReceita() {
     if (!confirm('Criar nova receita?')) return;
     receitaAtual = { id: null, nome: '', descricao: '', criadoEm: null };
+    imagemItemDataURL = null;
     document.getElementById('receitaNome').value = '';
     document.getElementById('receitaDescricao').value = '';
+    atualizarPreviewImagem();
     todasLinhas = [];
     linhaIdCounter = 0;
     adicionarLinha('Chaos Orb', 1, '');
@@ -1093,6 +1519,8 @@ function carregarReceita(id) {
     receitaAtual = { id: r.id, nome: r.nome, descricao: r.descricao, criadoEm: r.criadoEm };
     document.getElementById('receitaNome').value = r.nome;
     document.getElementById('receitaDescricao').value = r.descricao || '';
+    imagemItemDataURL = r.imagem || null;
+    atualizarPreviewImagem();
 
     todasLinhas = [];
     linhaIdCounter = 0;
@@ -1134,15 +1562,25 @@ function atualizarListaReceitas() {
         return;
     }
 
-    c.innerHTML = lista.map(r => `
-        <div class="dropdown-item">
-            <div class="dropdown-item-info" onclick="carregarReceita('${r.id}')">
-                <div class="dropdown-item-nome">${escapeHtml(r.nome)}</div>
-                <div class="dropdown-item-meta">${r.linhas.length} linha(s) • ${new Date(r.atualizadoEm).toLocaleDateString('pt-BR')}</div>
+    c.innerHTML = lista.map(r => {
+        const thumb = r.imagem
+            ? `<div class="dropdown-item-thumb"><img src="${r.imagem}" alt=""></div>`
+            : `<div class="dropdown-item-thumb">—</div>`;
+        return `
+            <div class="dropdown-item">
+                ${thumb}
+                <div class="dropdown-item-text">
+                    <div class="dropdown-item-info" onclick="carregarReceita('${r.id}')" style="padding:0;">
+                        <div>
+                            <div class="dropdown-item-nome">${escapeHtml(r.nome)}</div>
+                            <div class="dropdown-item-meta">${r.linhas.length} linha(s) • ${new Date(r.atualizadoEm).toLocaleDateString('pt-BR')}</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="dropdown-item-del" onclick="event.stopPropagation(); deletarReceita('${r.id}')" title="Apagar">✕</button>
             </div>
-            <button class="dropdown-item-del" onclick="event.stopPropagation(); deletarReceita('${r.id}')" title="Apagar">✕</button>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function toggleDropdown() {
@@ -1168,9 +1606,10 @@ function exportarReceita() {
     const descricao = document.getElementById('receitaDescricao').value.trim();
 
     const dados = {
-        versao: 1,
+        versao: 2,
         nome,
         descricao,
+        imagem: imagemItemDataURL || null,
         criadoEm: new Date().toISOString(),
         linhas: todasLinhas.map(l => ({
             tentativas: l.tentativas,
@@ -1199,6 +1638,8 @@ function importarReceita(ev) {
 
             document.getElementById('receitaNome').value = d.nome || 'Importada';
             document.getElementById('receitaDescricao').value = d.descricao || '';
+            imagemItemDataURL = d.imagem || null;
+            atualizarPreviewImagem();
 
             todasLinhas = [];
             linhaIdCounter = 0;
@@ -1250,7 +1691,8 @@ function formatarNumero(n) {
     if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
     if (n >= 1000) return (n / 1000).toFixed(2) + 'k';
     if (n < 0.01 && n > 0) return n.toFixed(4);
-    if (n < 1) return n.toFixed(2);
+    if (n < 1) return n.toFixed(3);
+    if (n < 10) return n.toFixed(2);
     return n.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
 }
 
@@ -1265,6 +1707,7 @@ function escapeHtml(s) {
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
     carregarMoedaSalva();
+    carregarTaxasSalvas();
     adicionarLinha('Chaos Orb', 1, '');
     carregarPrecos();
 
