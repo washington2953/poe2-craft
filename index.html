@@ -1,502 +1,499 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoE2 - Calculadora de Craft</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoE2 - Calculadora de Craft</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:ital,wght@0,400;0,700;1,400&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        :root {
-            --poe-bg: #0a0a0a;
-            --poe-panel: #1a1817;
-            --poe-border: #3d3528;
-            --poe-gold: #c9a84c;
-            --poe-gold-light: #e8d48b;
-            --poe-text: #d4cfc0;
-            --poe-text-dim: #7a7568;
-            --poe-red: #a83232;
-            --poe-green: #4a7a4a;
-        }
+:root {
+    --poe-bg: #0a0a0a;
+    --poe-panel: #1a1817;
+    --poe-border: #3d3528;
+    --poe-gold: #c9a84c;
+    --poe-gold-light: #e8d48b;
+    --poe-text: #d4cfc0;
+    --poe-text-dim: #7a7568;
+    --poe-red: #a83232;
+    --poe-green: #4a7a4a;
+}
 
-        body {
-            font-family: 'Spectral', 'Segoe UI', serif;
-            background: var(--poe-bg);
-            background-image:
-                radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 60%),
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            color: var(--poe-text);
-            min-height: 100vh;
-            padding: 20px;
-        }
+body {
+    font-family: 'Spectral', 'Segoe UI', serif;
+    background: var(--poe-bg);
+    background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: var(--poe-text);
+    min-height: 100vh;
+    padding: 20px;
+}
 
-        /* ===== HEADER ===== */
-        .poe-header {
-            text-align: center;
-            padding: 30px 20px;
-            border-bottom: 1px solid var(--poe-border);
-            margin-bottom: 25px;
-            position: relative;
-        }
-        .poe-header::before {
-            content: '';
-            position: absolute;
-            bottom: -1px; left: 50%;
-            transform: translateX(-50%);
-            width: 200px; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
-        }
-        .poe-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2em;
-            color: var(--poe-gold);
-            text-shadow: 0 0 20px rgba(201,168,76,0.3);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-        .poe-header .subtitle {
-            color: var(--poe-text-dim);
-            font-size: 0.85em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .league-badge {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 4px 16px;
-            background: rgba(201,168,76,0.1);
-            border: 1px solid var(--poe-border);
-            border-radius: 2px;
-            color: var(--poe-gold);
-            font-size: 0.8em;
-            letter-spacing: 1px;
-        }
+.poe-header {
+    text-align: center;
+    padding: 30px 20px;
+    border-bottom: 1px solid var(--poe-border);
+    margin-bottom: 25px;
+    position: relative;
+}
+.poe-header::before {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
+}
+.poe-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2em;
+    color: var(--poe-gold);
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.poe-header .subtitle {
+    color: var(--poe-text-dim);
+    font-size: 0.85em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.league-badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 16px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid var(--poe-border);
+    border-radius: 2px;
+    color: var(--poe-gold);
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
 
-        .container { max-width: 1250px; margin: 0 auto; }
+.container { max-width: 1250px; margin: 0 auto; }
 
-        /* ===== HEADER DA RECEITA ===== */
-        .receita-header {
-            background: var(--poe-panel);
-            border: 1px solid var(--poe-border);
-            padding: 20px;
-            margin-bottom: 18px;
-            position: relative;
-        }
-        .receita-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
-        }
-        .receita-titulo {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-        .receita-titulo label {
-            color: var(--poe-gold);
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            white-space: nowrap;
-        }
-        .input-receita-nome {
-            flex: 1;
-            min-width: 200px;
-            padding: 10px 14px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-gold-light);
-            font-family: inherit;
-            font-size: 1.1em;
-            font-weight: 700;
-        }
-        .input-receita-nome:focus {
-            outline: none;
-            border-color: var(--poe-gold);
-            box-shadow: 0 0 12px rgba(201,168,76,0.2);
-        }
-        .input-receita-desc {
-            width: 100%;
-            padding: 10px 14px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            font-family: inherit;
-            font-size: 0.9em;
-            resize: vertical;
-            min-height: 55px;
-        }
-        .input-receita-desc:focus {
-            outline: none;
-            border-color: var(--poe-gold);
-        }
-        .receita-acoes {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-top: 12px;
-        }
-        .btn-receita {
-            padding: 9px 16px;
-            background: transparent;
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            font-family: inherit;
-            font-size: 0.8em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        .btn-receita:hover {
-            border-color: var(--poe-gold);
-            color: var(--poe-gold);
-            background: rgba(201,168,76,0.05);
-        }
-        .btn-receita.primary {
-            border-color: var(--poe-gold);
-            color: var(--poe-gold);
-        }
-        .btn-receita.primary:hover {
-            background: rgba(201,168,76,0.15);
-            box-shadow: 0 0 15px rgba(201,168,76,0.2);
-        }
+/* ===== HEADER DE RECEITA ===== */
+.receita-header {
+    background: var(--poe-panel);
+    border: 1px solid var(--poe-border);
+    padding: 20px;
+    margin-bottom: 18px;
+    position: relative;
+}
+.receita-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
+}
+.receita-titulo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.receita-titulo label {
+    color: var(--poe-gold);
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+.input-receita-nome {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-gold-light);
+    font-family: inherit;
+    font-size: 1.1em;
+    font-weight: 700;
+}
+.input-receita-nome:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.2);
+}
+.input-receita-desc {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.9em;
+    resize: vertical;
+    min-height: 55px;
+}
+.input-receita-desc:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+}
+.receita-acoes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 12px;
+}
+.btn-receita {
+    padding: 9px 16px;
+    background: transparent;
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+.btn-receita:hover {
+    border-color: var(--poe-gold);
+    color: var(--poe-gold);
+    background: rgba(201,168,76,0.05);
+}
+.btn-receita.primary {
+    border-color: var(--poe-gold);
+    color: var(--poe-gold);
+}
+.btn-receita.primary:hover {
+    background: rgba(201,168,76,0.15);
+    box-shadow: 0 0 15px rgba(201,168,76,0.2);
+}
 
-        /* ===== DROPDOWN ===== */
-        .dropdown-wrapper { position: relative; display: inline-block; }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: calc(100% + 6px);
-            left: 0;
-            min-width: 320px;
-            max-height: 400px;
-            overflow-y: auto;
-            background: #1f1c18;
-            border: 1px solid var(--poe-border);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-            z-index: 1000;
-        }
-        .dropdown-menu.open { display: block; }
-        .dropdown-item {
-            display: flex;
-            align-items: stretch;
-            border-bottom: 1px solid rgba(61,53,40,0.4);
-        }
-        .dropdown-item:hover { background: rgba(201,168,76,0.06); }
-        .dropdown-item-info { flex: 1; padding: 10px 14px; cursor: pointer; }
-        .dropdown-item-nome {
-            color: var(--poe-gold-light);
-            font-weight: 700;
-            font-size: 0.9em;
-            margin-bottom: 3px;
-        }
-        .dropdown-item-meta { color: var(--poe-text-dim); font-size: 0.75em; }
-        .dropdown-item-del {
-            background: transparent;
-            border: none;
-            color: var(--poe-text-dim);
-            padding: 0 14px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.2s;
-        }
-        .dropdown-item-del:hover { color: var(--poe-red); background: rgba(168,50,50,0.1); }
-        .dropdown-vazio {
-            padding: 20px;
-            text-align: center;
-            color: var(--poe-text-dim);
-            font-style: italic;
-            font-size: 0.85em;
-        }
+/* ===== DROPDOWN ===== */
+.dropdown-wrapper { position: relative; display: inline-block; }
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #1f1c18;
+    border: 1px solid var(--poe-border);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+    z-index: 1000;
+}
+.dropdown-menu.open { display: block; }
+.dropdown-item {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(61,53,40,0.4);
+}
+.dropdown-item:hover { background: rgba(201,168,76,0.06); }
+.dropdown-item-info { flex: 1; padding: 10px 14px; cursor: pointer; }
+.dropdown-item-nome {
+    color: var(--poe-gold-light);
+    font-weight: 700;
+    font-size: 0.9em;
+    margin-bottom: 3px;
+}
+.dropdown-item-meta { color: var(--poe-text-dim); font-size: 0.75em; }
+.dropdown-item-del {
+    background: transparent;
+    border: none;
+    color: var(--poe-text-dim);
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.2s;
+}
+.dropdown-item-del:hover { color: var(--poe-red); background: rgba(168,50,50,0.1); }
+.dropdown-vazio {
+    padding: 20px;
+    text-align: center;
+    color: var(--poe-text-dim);
+    font-style: italic;
+    font-size: 0.85em;
+}
 
-        /* ===== STATUS BAR ===== */
-        .status-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 16px;
-            background: var(--poe-panel);
-            border: 1px solid var(--poe-border);
-            margin-bottom: 18px;
-            font-size: 0.85em;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .status-indicator { display: flex; align-items: center; gap: 8px; }
-        .status-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--poe-red);
-            transition: background 0.3s;
-        }
-        .status-dot.online { background: #4a7a4a; box-shadow: 0 0 8px rgba(74,122,74,0.6); }
-        .status-dot.loading { background: var(--poe-gold); animation: pulse 1s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+/* ===== STATUS BAR ===== */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--poe-panel);
+    border: 1px solid var(--poe-border);
+    margin-bottom: 18px;
+    font-size: 0.85em;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.status-indicator { display: flex; align-items: center; gap: 8px; }
+.status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--poe-red);
+    transition: background 0.3s;
+}
+.status-dot.online { background: #4a7a4a; box-shadow: 0 0 8px rgba(74,122,74,0.6); }
+.status-dot.loading { background: var(--poe-gold); animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-        .refresh-btn {
-            background: transparent;
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            padding: 6px 14px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.85em;
-            transition: all 0.3s;
-            margin-left: 10px;
-        }
-        .refresh-btn:hover {
-            border-color: var(--poe-gold);
-            color: var(--poe-gold);
-            background: rgba(201,168,76,0.05);
-        }
-        .refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.refresh-btn {
+    background: transparent;
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85em;
+    transition: all 0.3s;
+    margin-left: 10px;
+}
+.refresh-btn:hover {
+    border-color: var(--poe-gold);
+    color: var(--poe-gold);
+    background: rgba(201,168,76,0.05);
+}
+.refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* ===== SELETOR DE MOEDA ===== */
-        .moeda-selector {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .moeda-selector label {
-            color: var(--poe-gold);
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            white-space: nowrap;
-        }
-        .select-moeda {
-            padding: 7px 32px 7px 12px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-gold-light);
-            font-family: inherit;
-            font-size: 0.85em;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            transition: all 0.3s;
-        }
-        .select-moeda:hover, .select-moeda:focus {
-            outline: none;
-            border-color: var(--poe-gold);
-            box-shadow: 0 0 10px rgba(201,168,76,0.15);
-        }
-        .select-moeda option {
-            background: var(--poe-panel);
-            color: var(--poe-text);
-        }
+/* ===== SELETOR DE MOEDA ===== */
+.moeda-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.moeda-selector label {
+    color: var(--poe-gold);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+.select-moeda {
+    padding: 7px 32px 7px 12px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-gold-light);
+    font-family: inherit;
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: all 0.3s;
+}
+.select-moeda:hover, .select-moeda:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+    box-shadow: 0 0 10px rgba(201,168,76,0.15);
+}
+.select-moeda option { background: var(--poe-panel); color: var(--poe-text); }
 
-        /* ===== TABELA ===== */
-        .craft-table-wrapper {
-            background: var(--poe-panel);
-            border: 1px solid var(--poe-border);
-            overflow-x: auto;
-            margin-bottom: 18px;
-            position: relative;
-        }
-        .craft-table-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
-        }
-        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
-        thead { background: rgba(201,168,76,0.08); }
-        th {
-            padding: 14px 12px;
-            text-align: left;
-            font-size: 0.78em;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--poe-gold);
-            border-bottom: 1px solid var(--poe-border);
-            font-weight: 700;
-            white-space: nowrap;
-        }
-        td {
-            padding: 10px 12px;
-            border-bottom: 1px solid rgba(61,53,40,0.4);
-            font-size: 0.9em;
-            vertical-align: middle;
-        }
-        tr:hover td { background: rgba(201,168,76,0.03); }
+/* ===== TABELA ===== */
+.craft-table-wrapper {
+    background: var(--poe-panel);
+    border: 1px solid var(--poe-border);
+    overflow-x: auto;
+    margin-bottom: 18px;
+    position: relative;
+}
+.craft-table-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
+}
+table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+thead { background: rgba(201,168,76,0.08); }
+th {
+    padding: 14px 12px;
+    text-align: left;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--poe-gold);
+    border-bottom: 1px solid var(--poe-border);
+    font-weight: 700;
+    white-space: nowrap;
+}
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(61,53,40,0.4);
+    font-size: 0.9em;
+    vertical-align: middle;
+}
+tr:hover td { background: rgba(201,168,76,0.03); }
 
-        .col-tentativas { width: 10%; min-width: 90px; }
-        .col-orbe { width: 26%; min-width: 230px; }
-        .col-preco { width: 13%; min-width: 120px; }
-        .col-total { width: 15%; min-width: 140px; }
-        .col-notas { min-width: 220px; }
-        .col-acoes { width: 6%; min-width: 60px; text-align: center; }
+.col-tentativas { width: 10%; min-width: 90px; }
+.col-orbe { width: 26%; min-width: 230px; }
+.col-preco { width: 13%; min-width: 120px; }
+.col-total { width: 15%; min-width: 140px; }
+.col-notas { min-width: 220px; }
+.col-acoes { width: 6%; min-width: 60px; text-align: center; }
 
-        .input-tentativas {
-            width: 100%;
-            padding: 8px 10px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            font-family: inherit;
-            font-size: 0.95em;
-            text-align: center;
-        }
-        .input-tentativas:focus {
-            outline: none;
-            border-color: var(--poe-gold);
-            box-shadow: 0 0 8px rgba(201,168,76,0.15);
-        }
+.input-tentativas {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.95em;
+    text-align: center;
+}
+.input-tentativas:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+    box-shadow: 0 0 8px rgba(201,168,76,0.15);
+}
 
-        .select-orbe {
-            width: 100%;
-            padding: 8px 30px 8px 10px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            font-family: inherit;
-            font-size: 0.9em;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-        .select-orbe:focus { outline: none; border-color: var(--poe-gold); }
-        .select-orbe option, .select-orbe optgroup { background: var(--poe-panel); color: var(--poe-text); }
+.select-orbe {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.9em;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+.select-orbe:focus { outline: none; border-color: var(--poe-gold); }
+.select-orbe option, .select-orbe optgroup { background: var(--poe-panel); color: var(--poe-text); }
 
-        .input-notas {
-            width: 100%;
-            padding: 8px 10px;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--poe-border);
-            color: var(--poe-text);
-            font-family: inherit;
-            font-size: 0.85em;
-            font-style: italic;
-        }
-        .input-notas:focus {
-            outline: none;
-            border-color: var(--poe-gold);
-            font-style: normal;
-        }
-        .input-notas::placeholder { color: var(--poe-text-dim); opacity: 0.6; }
+.input-notas {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--poe-border);
+    color: var(--poe-text);
+    font-family: inherit;
+    font-size: 0.85em;
+    font-style: italic;
+}
+.input-notas:focus {
+    outline: none;
+    border-color: var(--poe-gold);
+    font-style: normal;
+}
+.input-notas::placeholder { color: var(--poe-text-dim); opacity: 0.6; }
 
-        .preco-valor { color: var(--poe-gold-light); font-weight: 700; font-size: 0.95em; }
-        .preco-moeda { font-size: 0.72em; color: var(--poe-text-dim); display: block; margin-top: 2px; }
-        .preco-nao-disponivel { color: var(--poe-red); font-style: italic; font-size: 0.85em; }
-        .preco-carregando { color: var(--poe-text-dim); font-size: 0.85em; animation: pulse 1.5s infinite; }
-        .total-valor { color: var(--poe-gold); font-weight: 700; font-size: 1em; }
+.preco-valor { color: var(--poe-gold-light); font-weight: 700; font-size: 0.95em; }
+.preco-moeda { font-size: 0.72em; color: var(--poe-text-dim); display: block; margin-top: 2px; }
+.preco-nao-disponivel { color: var(--poe-red); font-style: italic; font-size: 0.85em; }
+.preco-carregando { color: var(--poe-text-dim); font-size: 0.85em; animation: pulse 1.5s infinite; }
+.total-valor { color: var(--poe-gold); font-weight: 700; font-size: 1em; }
 
-        .btn-remover {
-            background: transparent;
-            border: 1px solid var(--poe-red);
-            color: var(--poe-red);
-            width: 32px; height: 32px;
-            cursor: pointer;
-            font-size: 1.1em;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            border-radius: 2px;
-        }
-        .btn-remover:hover { background: var(--poe-red); color: #fff; }
-        .btn-remover:disabled { opacity: 0.2; cursor: not-allowed; border-color: var(--poe-text-dim); color: var(--poe-text-dim); }
+.btn-remover {
+    background: transparent;
+    border: 1px solid var(--poe-red);
+    color: var(--poe-red);
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 1.1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    border-radius: 2px;
+}
+.btn-remover:hover { background: var(--poe-red); color: #fff; }
+.btn-remover:disabled { opacity: 0.2; cursor: not-allowed; border-color: var(--poe-text-dim); color: var(--poe-text-dim); }
 
-        .action-buttons { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
-        .btn-add {
-            padding: 12px 28px;
-            background: transparent;
-            border: 1px solid var(--poe-gold);
-            color: var(--poe-gold);
-            font-family: inherit;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-add:hover { background: rgba(201,168,76,0.1); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
+.action-buttons { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+.btn-add {
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid var(--poe-gold);
+    color: var(--poe-gold);
+    font-family: inherit;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-add:hover { background: rgba(201,168,76,0.1); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
 
-        .total-panel {
-            background: var(--poe-panel);
-            border: 1px solid var(--poe-border);
-            padding: 24px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-        .total-panel::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
-        }
-        .total-label {
-            font-size: 1em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--poe-text-dim);
-        }
-        .total-value {
-            font-size: 2em;
-            color: var(--poe-gold);
-            text-shadow: 0 0 30px rgba(201,168,76,0.4);
-            font-weight: 700;
-            font-family: 'Cinzel', serif;
-        }
-        .total-divine { font-size: 0.9em; color: var(--poe-text-dim); margin-top: 4px; }
-        .total-breakdown { text-align: right; font-size: 0.85em; color: var(--poe-text-dim); }
+.total-panel {
+    background: var(--poe-panel);
+    border: 1px solid var(--poe-border);
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+}
+.total-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--poe-gold), transparent);
+}
+.total-label {
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--poe-text-dim);
+}
+.total-value {
+    font-size: 2em;
+    color: var(--poe-gold);
+    text-shadow: 0 0 30px rgba(201,168,76,0.4);
+    font-weight: 700;
+    font-family: 'Cinzel', serif;
+}
+.total-divine { font-size: 0.9em; color: var(--poe-text-dim); margin-top: 4px; }
+.total-breakdown { text-align: right; font-size: 0.85em; color: var(--poe-text-dim); }
 
-        .toast {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            padding: 14px 22px;
-            background: #1f1c18;
-            border: 1px solid var(--poe-gold);
-            border-left: 4px solid var(--poe-gold);
-            color: var(--poe-gold-light);
-            font-size: 0.9em;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(201,168,76,0.15);
-            z-index: 9999;
-            transform: translateY(120%);
-            opacity: 0;
-            transition: all 0.3s ease-out;
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
+.toast {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    padding: 14px 22px;
+    background: #1f1c18;
+    border: 1px solid var(--poe-gold);
+    border-left: 4px solid var(--poe-gold);
+    color: var(--poe-gold-light);
+    font-size: 0.9em;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(201,168,76,0.15);
+    z-index: 9999;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
 
-        @media (max-width: 768px) {
-            body { padding: 10px; }
-            .poe-header h1 { font-size: 1.4em; }
-            th, td { padding: 8px 6px; font-size: 0.8em; }
-            .total-value { font-size: 1.5em; }
-            .total-panel { flex-direction: column; text-align: center; }
-            .total-breakdown { text-align: center; }
-        }
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    .poe-header h1 { font-size: 1.4em; }
+    th, td { padding: 8px 6px; font-size: 0.8em; }
+    .total-value { font-size: 1.5em; }
+    .total-panel { flex-direction: column; text-align: center; }
+    .total-breakdown { text-align: center; }
+}
 
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--poe-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--poe-border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--poe-gold); }
-    </style>
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--poe-bg); }
+::-webkit-scrollbar-thumb { background: var(--poe-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--poe-gold); }
+</style>
 </head>
 <body>
 
@@ -536,7 +533,7 @@
         </div>
     </div>
 
-    <!-- STATUS BAR COM SELETOR DE MOEDA -->
+    <!-- STATUS BAR -->
     <div class="status-bar">
         <div class="status-indicator">
             <span class="status-dot" id="statusDot"></span>
@@ -544,7 +541,7 @@
         </div>
 
         <div class="moeda-selector">
-            <label>💰 Moeda de referência:</label>
+            <label>💰 Moeda:</label>
             <select class="select-moeda" id="moedaRef" onchange="trocarMoeda(this.value)">
                 <option value="Exalted Orb">Exalted Orb</option>
                 <option value="Divine Orb">Divine Orb</option>
@@ -642,13 +639,14 @@ const ORBES = [
 ];
 
 // ============================================================
-// ESTADO
+// ESTADO GLOBAL
 // ============================================================
 let precos = {};
 let precosCarregados = false;
 let linhaIdCounter = 0;
 let todasLinhas = [];
 let receitaAtual = { id: null, nome: '', descricao: '', criadoEm: null };
+
 let moedaReferencia = 'Exalted Orb';
 
 const STORAGE_KEY = 'poe2_craft_receitas_v1';
@@ -667,6 +665,7 @@ async function carregarPrecos() {
     btnRefresh.disabled = true;
 
     const targetUrl = 'https://poe.ninja/poe2/api/economy/exchange/current/overview?league=Forbidden%20Rites&type=Currency';
+
     const proxies = [
         `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
         `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
@@ -697,8 +696,7 @@ async function carregarPrecos() {
         processarDados(dados);
         statusDot.className = 'status-dot online';
         statusText.textContent = `${Object.keys(precos).length} orbes carregados`;
-        document.getElementById('lastUpdate').textContent =
-            `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
+        document.getElementById('lastUpdate').textContent = `Atualizado: ${new Date().toLocaleTimeString('pt-BR')}`;
         precosCarregados = true;
         btnRefresh.disabled = false;
         recalcularTudo();
@@ -717,11 +715,9 @@ function processarDados(dados) {
         if (Array.isArray(dados.items)) {
             dados.items.forEach(i => itemsMap[i.id] = i.name);
         } else {
-            Object.entries(dados.items).forEach(([id, i]) => {
-                itemsMap[id] = i.name || i;
-            });
+            Object.entries(dados.items).forEach(([id, i]) => itemsMap[id] = i.name || i);
         }
-        const primary = (dados.core && dados.core.primary) || 'Exalted Orb';
+        const primary = dados.core?.primary || 'Exalted Orb';
         dados.lines.forEach(line => {
             const nome = line.id || itemsMap[line.id];
             if (nome && line.primaryValue !== undefined) {
@@ -741,4 +737,547 @@ function processarDados(dados) {
 function usarDadosFallback() {
     precos = {
         "Mirror of Kalandra": { value: 1600, currency: "Exalted Orb" },
-        "Hinekora's Lock": {
+        "Hinekora's Lock": { value: 1600, currency: "Exalted Orb" },
+        "Fracturing Orb": { value: 329, currency: "Exalted Orb" },
+        "Perfect Chaos Orb": { value: 8.0, currency: "Exalted Orb" },
+        "Perfect Exalted Orb": { value: 2.1, currency: "Exalted Orb" },
+        "Divine Orb": { value: 1.8, currency: "Exalted Orb" },
+        "Orb of Annulment": { value: 1.6, currency: "Exalted Orb" },
+        "Greater Chaos Orb": { value: 1.6, currency: "Exalted Orb" },
+        "Chaos Orb": { value: 1.6, currency: "Exalted Orb" },
+        "Perfect Regal Orb": { value: 11, currency: "Exalted Orb" },
+        "Orb of Alchemy": { value: 8.7, currency: "Exalted Orb" },
+        "Greater Exalted Orb": { value: 7.0, currency: "Exalted Orb" },
+        "Greater Orb of Transmutation": { value: 6.5, currency: "Exalted Orb" },
+        "Exalted Orb": { value: 1.0, currency: "Exalted Orb" },
+        "Greater Orb of Augmentation": { value: 5.0, currency: "Exalted Orb" }
+    };
+    statusText.textContent = `${Object.keys(precos).length} orbes (fallback)`;
+    statusDot.className = 'status-dot online';
+    document.getElementById('lastUpdate').textContent = `Fallback: ${new Date().toLocaleTimeString('pt-BR')}`;
+    precosCarregados = true;
+    recalcularTudo();
+}
+
+// ============================================================
+// CONVERSÃO DE MOEDA
+// ============================================================
+function converterParaMoedaRef(valorEmExalted) {
+    if (valorEmExalted === undefined || valorEmExalted === null) return null;
+
+    if (moedaReferencia === 'Exalted Orb') {
+        return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+    }
+
+    const moedaPreco = precos[moedaReferencia];
+    if (!moedaPreco || !moedaPreco.value || moedaPreco.value <= 0) {
+        return { valor: valorEmExalted, moeda: 'Exalted Orb' };
+    }
+
+    return {
+        valor: valorEmExalted / moedaPreco.value,
+        moeda: moedaReferencia
+    };
+}
+
+function trocarMoeda(novaMoeda) {
+    moedaReferencia = novaMoeda;
+    try { localStorage.setItem(MOEDA_STORAGE_KEY, novaMoeda); } catch (e) {}
+    atualizarTotais();
+    mostrarToast(`💱 Moeda alterada para ${novaMoeda}`, 1200);
+}
+
+function carregarMoedaSalva() {
+    try {
+        const salva = localStorage.getItem(MOEDA_STORAGE_KEY);
+        if (salva) {
+            moedaReferencia = salva;
+            const sel = document.getElementById('moedaRef');
+            if (sel) sel.value = salva;
+        }
+    } catch (e) {}
+}
+
+// ============================================================
+// LINHAS
+// ============================================================
+function adicionarLinha(orbeNome = '', tentativas = 1, notas = '') {
+    const id = ++linhaIdCounter;
+    todasLinhas.push({ id, tentativas, orbe: orbeNome || ORBES[0], notas: notas || '' });
+    renderizarTabela();
+    salvarReceitaAtual(true);
+}
+
+function removerLinha(id) {
+    if (todasLinhas.length <= 1) return;
+    todasLinhas = todasLinhas.filter(l => l.id !== id);
+    renderizarTabela();
+    salvarReceitaAtual(true);
+}
+
+function limparTudo() {
+    if (!confirm('Limpar todas as linhas?')) return;
+    todasLinhas = [];
+    linhaIdCounter = 0;
+    adicionarLinha('Chaos Orb', 1, '');
+}
+
+function renderizarTabela() {
+    const tbody = document.getElementById('craftBody');
+    tbody.innerHTML = '';
+
+    todasLinhas.forEach(linha => {
+        const tr = document.createElement('tr');
+        tr.dataset.id = linha.id;
+
+        // Tentativas
+        const td1 = document.createElement('td');
+        const inp1 = document.createElement('input');
+        inp1.type = 'number';
+        inp1.className = 'input-tentativas';
+        inp1.min = '1';
+        inp1.value = linha.tentativas;
+        inp1.addEventListener('input', e => {
+            linha.tentativas = parseInt(e.target.value) || 1;
+            atualizarTotais();
+            salvarReceitaAtual(true);
+        });
+        td1.appendChild(inp1);
+
+        // Orbe
+        const td2 = document.createElement('td');
+        const sel = document.createElement('select');
+        sel.className = 'select-orbe';
+
+        const grupos = {
+            'Orbes Principais': ["Mirror of Kalandra","Hinekora's Lock",'Fracturing Orb','Perfect Chaos Orb','Perfect Exalted Orb','Divine Orb','Orb of Annulment','Greater Chaos Orb','Chaos Orb','Perfect Regal Orb','Perfect Orb of Transmutation','Orb of Alchemy','Greater Exalted Orb','Greater Orb of Transmutation','Exalted Orb','Greater Orb of Augmentation'],
+            'Ossos': ORBES.filter(o => o.includes('Jawbone')||o.includes('Collarbone')||o.includes('Rib')||o.includes('Cranium')),
+            'Essências': ORBES.filter(o => o.includes('Essence')),
+            'Omens': ORBES.filter(o => o.includes('Omen')),
+            'Líquidos': ORBES.filter(o => o.includes('Liquid')),
+            'Catalisadores': ORBES.filter(o => o.includes('Catalyst')),
+            'Ligas e Minérios': ORBES.filter(o => o.includes('Alloy')||o.includes('Ore')||o.includes('Crest')||o.includes('Verisium'))
+        };
+
+        const usados = new Set();
+        Object.entries(grupos).forEach(([g, lista]) => {
+            const fil = lista.filter(o => { if (usados.has(o)) return false; usados.add(o); return true; });
+            if (!fil.length) return;
+            const og = document.createElement('optgroup');
+            og.label = g;
+            fil.forEach(o => {
+                const opt = document.createElement('option');
+                opt.value = o;
+                opt.textContent = o;
+                if (o === linha.orbe) opt.selected = true;
+                og.appendChild(opt);
+            });
+            sel.appendChild(og);
+        });
+
+        const rest = ORBES.filter(o => !usados.has(o));
+        if (rest.length) {
+            const og = document.createElement('optgroup');
+            og.label = 'Outros';
+            rest.forEach(o => {
+                const opt = document.createElement('option');
+                opt.value = o;
+                opt.textContent = o;
+                if (o === linha.orbe) opt.selected = true;
+                og.appendChild(opt);
+            });
+            sel.appendChild(og);
+        }
+
+        sel.addEventListener('change', e => {
+            linha.orbe = e.target.value;
+            atualizarTotais();
+            salvarReceitaAtual(true);
+        });
+        td2.appendChild(sel);
+
+        // Preço unitário
+        const td3 = document.createElement('td');
+        td3.className = 'preco-cell';
+        td3.innerHTML = getPrecoHTML(linha.orbe);
+        td3.dataset.orbe = linha.orbe;
+
+        // Preço estimado
+        const td4 = document.createElement('td');
+        td4.className = 'total-cell';
+        td4.innerHTML = getTotalHTML(linha);
+
+        // Notas
+        const td5 = document.createElement('td');
+        const inp5 = document.createElement('input');
+        inp5.type = 'text';
+        inp5.className = 'input-notas';
+        inp5.placeholder = 'ex: spam até hit T1...';
+        inp5.value = linha.notas;
+        inp5.addEventListener('input', e => {
+            linha.notas = e.target.value;
+            salvarReceitaAtual(true);
+        });
+        td5.appendChild(inp5);
+
+        // Ações
+        const td6 = document.createElement('td');
+        td6.style.textAlign = 'center';
+        const btn = document.createElement('button');
+        btn.className = 'btn-remover';
+        btn.innerHTML = '✕';
+        btn.disabled = todasLinhas.length <= 1;
+        btn.onclick = () => removerLinha(linha.id);
+        td6.appendChild(btn);
+
+        tr.append(td1, td2, td3, td4, td5, td6);
+        tbody.appendChild(tr);
+    });
+}
+
+function getPrecoHTML(orbeNome) {
+    if (!precosCarregados) return '<span class="preco-carregando">⏳</span>';
+    const p = precos[orbeNome];
+    if (!p) return '<span class="preco-nao-disponivel">N/D</span>';
+
+    const conv = converterParaMoedaRef(p.value);
+    if (conv === null) return '<span class="preco-nao-disponivel">N/D</span>';
+
+    return `<span class="preco-valor">${formatarNumero(conv.valor)}</span>
+            <span class="preco-moeda">${conv.moeda}</span>`;
+}
+
+function getTotalHTML(linha) {
+    if (!precosCarregados) return '<span class="preco-carregando">—</span>';
+    const p = precos[linha.orbe];
+    if (!p) return '<span class="preco-nao-disponivel">—</span>';
+
+    const totalExalted = p.value * linha.tentativas;
+    const conv = converterParaMoedaRef(totalExalted);
+    if (conv === null) return '<span class="preco-nao-disponivel">—</span>';
+
+    return `<span class="total-valor">${formatarNumero(conv.valor)}</span>
+            <span class="preco-moeda">${conv.moeda}</span>`;
+}
+
+function atualizarTotais() {
+    document.querySelectorAll('#craftBody tr').forEach(tr => {
+        const id = parseInt(tr.dataset.id);
+        const linha = todasLinhas.find(l => l.id === id);
+        if (!linha) return;
+
+        const tp = tr.querySelector('.preco-cell');
+        const tt = tr.querySelector('.total-cell');
+
+        if (tp.dataset.orbe !== linha.orbe) {
+            tp.innerHTML = getPrecoHTML(linha.orbe);
+            tp.dataset.orbe = linha.orbe;
+        }
+        tt.innerHTML = getTotalHTML(linha);
+    });
+    calcularTotalGeral();
+}
+
+function recalcularTudo() {
+    renderizarTabela();
+    atualizarTotais();
+}
+
+function calcularTotalGeral() {
+    if (!precosCarregados) return;
+
+    let totalExalted = 0;
+    todasLinhas.forEach(l => {
+        const p = precos[l.orbe];
+        if (!p) return;
+        totalExalted += p.value * l.tentativas;
+    });
+
+    const conv = converterParaMoedaRef(totalExalted);
+
+    if (conv === null || totalExalted === 0) {
+        document.getElementById('custoTotal').textContent = '—';
+        document.getElementById('custoTotalDivine').textContent = '';
+    } else {
+        document.getElementById('custoTotal').textContent = `${formatarNumero(conv.valor)} ${conv.moeda}`;
+
+        const divP = precos['Divine Orb'];
+        const exP = precos['Exalted Orb'];
+
+        if (moedaReferencia !== 'Divine Orb' && divP && divP.value > 0) {
+            document.getElementById('custoTotalDivine').textContent =
+                `≈ ${formatarNumero(totalExalted / divP.value)} Divine Orbs`;
+        } else if (moedaReferencia !== 'Exalted Orb' && exP) {
+            document.getElementById('custoTotalDivine').textContent =
+                `≈ ${formatarNumero(totalExalted)} Exalted Orbs`;
+        } else {
+            document.getElementById('custoTotalDivine').textContent = '';
+        }
+    }
+
+    const tot = {};
+    todasLinhas.forEach(l => {
+        const p = precos[l.orbe];
+        if (!p) return;
+        const v = p.value * l.tentativas;
+        tot[p.currency] = (tot[p.currency] || 0) + v;
+    });
+
+    const bd = [];
+    Object.entries(tot).forEach(([m, v]) => {
+        if (v > 0) bd.push(`${formatarNumero(v)} ${m}`);
+    });
+    document.getElementById('breakdown').innerHTML = bd.join('<br>');
+}
+
+// ============================================================
+// PERSISTÊNCIA
+// ============================================================
+function obterTodasReceitas() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (e) { return {}; }
+}
+
+function gravarTodasReceitas(r) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); } catch (e) {}
+}
+
+function salvarReceitaAtual(silencioso = false) {
+    const nome = document.getElementById('receitaNome').value.trim();
+    const descricao = document.getElementById('receitaDescricao').value.trim();
+
+    if (!nome) {
+        if (!silencioso) alert('⚠️ Dê um nome para a receita antes de salvar.');
+        return;
+    }
+
+    const receitas = obterTodasReceitas();
+    const id = receitaAtual.id || `receita_${Date.now()}`;
+
+    receitas[id] = {
+        id, nome, descricao,
+        linhas: todasLinhas.map(l => ({
+            tentativas: l.tentativas,
+            orbe: l.orbe,
+            notas: l.notas
+        })),
+        criadoEm: receitaAtual.criadoEm || new Date().toISOString(),
+        atualizadoEm: new Date().toISOString()
+    };
+
+    gravarTodasReceitas(receitas);
+
+    receitaAtual.id = id;
+    receitaAtual.nome = nome;
+    receitaAtual.descricao = descricao;
+    receitaAtual.criadoEm = receitas[id].criadoEm;
+
+    atualizarListaReceitas();
+    mostrarToast(silencioso ? '💾 Salvo automaticamente' : `✅ Receita "${nome}" salva!`, silencioso ? 800 : 2000);
+}
+
+function novaReceita() {
+    if (!confirm('Criar nova receita?')) return;
+    receitaAtual = { id: null, nome: '', descricao: '', criadoEm: null };
+    document.getElementById('receitaNome').value = '';
+    document.getElementById('receitaDescricao').value = '';
+    todasLinhas = [];
+    linhaIdCounter = 0;
+    adicionarLinha('Chaos Orb', 1, '');
+}
+
+function carregarReceita(id) {
+    const r = obterTodasReceitas()[id];
+    if (!r) return;
+
+    receitaAtual = { id: r.id, nome: r.nome, descricao: r.descricao, criadoEm: r.criadoEm };
+    document.getElementById('receitaNome').value = r.nome;
+    document.getElementById('receitaDescricao').value = r.descricao || '';
+
+    todasLinhas = [];
+    linhaIdCounter = 0;
+    r.linhas.forEach(l => {
+        todasLinhas.push({
+            id: ++linhaIdCounter,
+            tentativas: l.tentativas,
+            orbe: l.orbe,
+            notas: l.notas || ''
+        });
+    });
+
+    if (!todasLinhas.length) adicionarLinha();
+
+    renderizarTabela();
+    atualizarTotais();
+    mostrarToast(`📂 Receita "${r.nome}" carregada`);
+    fecharDropdown();
+}
+
+function deletarReceita(id) {
+    const r = obterTodasReceitas();
+    if (!r[id]) return;
+    if (!confirm(`Apagar receita "${r[id].nome}"?`)) return;
+    delete r[id];
+    gravarTodasReceitas(r);
+    atualizarListaReceitas();
+    if (receitaAtual.id === id) receitaAtual.id = null;
+    mostrarToast('🗑️ Receita apagada');
+}
+
+function atualizarListaReceitas() {
+    const lista = Object.values(obterTodasReceitas())
+        .sort((a, b) => new Date(b.atualizadoEm) - new Date(a.atualizadoEm));
+    const c = document.getElementById('receitasLista');
+
+    if (!lista.length) {
+        c.innerHTML = '<div class="dropdown-vazio">Nenhuma receita salva ainda.</div>';
+        return;
+    }
+
+    c.innerHTML = lista.map(r => `
+        <div class="dropdown-item">
+            <div class="dropdown-item-info" onclick="carregarReceita('${r.id}')">
+                <div class="dropdown-item-nome">${escapeHtml(r.nome)}</div>
+                <div class="dropdown-item-meta">${r.linhas.length} linha(s) • ${new Date(r.atualizadoEm).toLocaleDateString('pt-BR')}</div>
+            </div>
+            <button class="dropdown-item-del" onclick="event.stopPropagation(); deletarReceita('${r.id}')" title="Apagar">✕</button>
+        </div>
+    `).join('');
+}
+
+function toggleDropdown() {
+    const dd = document.getElementById('receitasDropdown');
+    const open = dd.classList.contains('open');
+    document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
+    if (!open) {
+        atualizarListaReceitas();
+        dd.classList.add('open');
+    }
+}
+
+function fecharDropdown() {
+    const dd = document.getElementById('receitasDropdown');
+    if (dd) dd.classList.remove('open');
+}
+
+// ============================================================
+// EXPORT / IMPORT
+// ============================================================
+function exportarReceita() {
+    const nome = document.getElementById('receitaNome').value.trim() || 'receita-sem-nome';
+    const descricao = document.getElementById('receitaDescricao').value.trim();
+
+    const dados = {
+        versao: 1,
+        nome,
+        descricao,
+        criadoEm: new Date().toISOString(),
+        linhas: todasLinhas.map(l => ({
+            tentativas: l.tentativas,
+            orbe: l.orbe,
+            notas: l.notas
+        }))
+    };
+
+    const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${nome.replace(/[^a-z0-9_-]/gi, '_')}.json`;
+    a.click();
+    mostrarToast('📤 Receita exportada');
+}
+
+function importarReceita(ev) {
+    const f = ev.target.files[0];
+    if (!f) return;
+
+    const rd = new FileReader();
+    rd.onload = e => {
+        try {
+            const d = JSON.parse(e.target.result);
+            if (!d.linhas || !Array.isArray(d.linhas)) throw new Error('Formato inválido');
+
+            document.getElementById('receitaNome').value = d.nome || 'Importada';
+            document.getElementById('receitaDescricao').value = d.descricao || '';
+
+            todasLinhas = [];
+            linhaIdCounter = 0;
+            d.linhas.forEach(l => {
+                todasLinhas.push({
+                    id: ++linhaIdCounter,
+                    tentativas: parseInt(l.tentativas) || 1,
+                    orbe: l.orbe || ORBES[0],
+                    notas: l.notas || ''
+                });
+            });
+
+            if (!todasLinhas.length) adicionarLinha();
+
+            receitaAtual = { id: null, nome: d.nome, descricao: d.descricao, criadoEm: null };
+
+            renderizarTabela();
+            atualizarTotais();
+            mostrarToast('📥 Receita importada');
+        } catch (err) {
+            alert('❌ Erro: ' + err.message);
+        }
+    };
+    rd.readAsText(f);
+    ev.target.value = '';
+}
+
+// ============================================================
+// TOAST & UTILS
+// ============================================================
+let toastTimer;
+
+function mostrarToast(msg, dur = 2000) {
+    let t = document.getElementById('toast');
+    if (!t) {
+        t = document.createElement('div');
+        t.id = 'toast';
+        t.className = 'toast';
+        document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), dur);
+}
+
+function formatarNumero(n) {
+    if (n == null) return '—';
+    if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(2) + 'k';
+    if (n < 0.01 && n > 0) return n.toFixed(4);
+    if (n < 1) return n.toFixed(2);
+    return n.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+}
+
+function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    carregarMoedaSalva();
+    adicionarLinha('Chaos Orb', 1, '');
+    carregarPrecos();
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.dropdown-wrapper')) fecharDropdown();
+    });
+
+    document.getElementById('receitaNome').addEventListener('blur', () => {
+        if (document.getElementById('receitaNome').value.trim() && todasLinhas.length) {
+            salvarReceitaAtual(true);
+        }
+    });
+});
+</script>
+</body>
+</html>
